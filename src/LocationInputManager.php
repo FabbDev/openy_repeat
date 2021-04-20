@@ -72,15 +72,15 @@ class LocationInputManager extends DefaultPluginManager {
   public function getOptionsForm(array $settings, $context = NULL) {
     $form = [
       '#type' => 'table',
-      '#prefix' => t('<h3>Location input</h3>Each option will, if it can be applied, supersede any following option.'),
+      '#prefix' => $this->t('<h3>Location input</h3>Each option will, if it can be applied, supersede any following option.'),
       '#header' => [
         [
-          'data' => t('Enable'),
+          'data' => $this->t('Enable'),
           'colspan' => 2,
         ],
-        t('Option'),
-        t('Settings'),
-        t('Weight'),
+        $this->t('Option'),
+        $this->t('Settings'),
+        $this->t('Weight'),
       ],
       '#tabledrag' => [
         [
@@ -124,7 +124,7 @@ class LocationInputManager extends DefaultPluginManager {
           ],
           'weight' => [
             '#type' => 'weight',
-            '#title' => t('Weight for @option', ['@option' => $label]),
+            '#title' => $this->t('Weight for @option', ['@option' => $label]),
             '#title_display' => 'invisible',
             '#size' => 4,
             '#default_value' => $weight,

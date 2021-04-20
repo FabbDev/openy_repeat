@@ -72,15 +72,15 @@ class MapCenterManager extends DefaultPluginManager {
   public function getCenterOptionsForm(array $settings, $context = NULL) {
     $form = [
       '#type' => 'table',
-      '#prefix' => t('<h3>Centre override</h3>These options allow to override the default map centre. Each option will, if it can be applied, supersede any following option.'),
+      '#prefix' => $this->t('<h3>Centre override</h3>These options allow to override the default map centre. Each option will, if it can be applied, supersede any following option.'),
       '#header' => [
         [
-          'data' => t('Enable'),
+          'data' => $this->t('Enable'),
           'colspan' => 2,
         ],
-        t('Option'),
-        t('Settings'),
-        t('Weight'),
+        $this->t('Option'),
+        $this->t('Settings'),
+        $this->t('Weight'),
       ],
       '#tabledrag' => [
         [
@@ -124,7 +124,7 @@ class MapCenterManager extends DefaultPluginManager {
           ],
           'weight' => [
             '#type' => 'weight',
-            '#title' => t('Weight for @option', ['@option' => $label]),
+            '#title' => $this->t('Weight for @option', ['@option' => $label]),
             '#title_display' => 'invisible',
             '#size' => 4,
             '#default_value' => $weight,
