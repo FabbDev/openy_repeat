@@ -172,7 +172,7 @@ leaflet.wms:
     url: https://github.com/heigeo/leaflet.wms/blob/gh-pages/LICENSE
     gpl-compatible: true
   js:
-    'https//cdn.jsdelivr.net/gh/heigeo/leaflet.wms@0.2.0/dist/leaflet.wms.min.js': { type: external, minified: true }
+    'https://cdn.jsdelivr.net/gh/heigeo/leaflet.wms@0.2.0/dist/leaflet.wms.min.js': { type: external, minified: true }
 
 mapfeature.leaflet_wms:
   js:
