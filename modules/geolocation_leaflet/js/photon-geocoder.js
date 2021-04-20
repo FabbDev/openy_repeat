@@ -88,7 +88,7 @@
             }
 
             $.getJSON(
-                'https://photon.komoot.de/api/',
+                'https://photon.komoot.io/api/',
                 options,
                 function (data) {
                   if (typeof data.features === 'undefined') {
