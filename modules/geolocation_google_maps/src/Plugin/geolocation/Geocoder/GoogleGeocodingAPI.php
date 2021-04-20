@@ -26,6 +26,36 @@ class GoogleGeocodingAPI extends GoogleGeocoderBase {
   /**
    * {@inheritdoc}
    */
+  protected function getDefaultSettings() {
+    $default_settings = parent::getDefaultSettings();
+    $default_settings['region'] = '';
+
+    return $default_settings;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getOptionsForm() {
+    $settings = $this->getSettings();
+    $form = parent::getOptionsForm();
+
+    $form += [
+      'region' => [
+        '#type' => 'textfield',
+        '#title' => $this->t('Region'),
+        '#description' => $this->t('Make a region biasing by providing a ccTLD country code. See <a href="https://developers.google.com/maps/documentation/geocoding/intro#RegionCodes">Region Biasing</a>'),
+        '#default_value' => $settings['region'],
+        '#size' => 5,
+      ],
+    ];
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function formAttachGeocoder(array &$render_array, $element_name) {
     parent::formAttachGeocoder($render_array, $element_name);
 
@@ -79,6 +109,9 @@ class GoogleGeocodingAPI extends GoogleGeocoderBase {
     }
     if (!empty($config->get('google_map_custom_url_parameters')['language'])) {
       $request_url .= '&language=' . $config->get('google_map_custom_url_parameters')['language'];
+    }
+    if (!empty($this->configuration['region'])) {
+      $request_url .= '&region=' . $this->configuration['region'];
     }
     if (
       !empty($this->configuration['boundary_restriction'])
