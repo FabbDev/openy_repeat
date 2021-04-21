@@ -1,6 +1,6 @@
 leaflet:
   header: true
-  remote: http://leafletjs.com/
+  remote: https://leafletjs.com/
   version: '1.0.3'
   license:
     name: BSD 2-clause "Simplified" License
@@ -173,6 +173,8 @@ leaflet.wms:
     gpl-compatible: true
   js:
     'https://cdn.jsdelivr.net/gh/heigeo/leaflet.wms@0.2.0/dist/leaflet.wms.min.js': { type: external, minified: true }
+  dependencies:
+    - geolocation_leaflet/leaflet
 
 mapfeature.leaflet_wms:
   js:
@@ -207,6 +209,8 @@ leaflet.bouncemarker:
     gpl-compatible: true
   js:
     'https://cdn.jsdelivr.net/gh/maximeh/leaflet.bouncemarker@1.2/bouncemarker.js': { type: external, minified: true }
+  dependencies:
+    - geolocation_leaflet/leaflet
 
 mapfeature.leaflet_marker_zoom_and_animate:
   js:
@@ -275,6 +279,8 @@ leaflet.fullscreen:
       'https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css': { type: external}
   js:
     'https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js': { type: external, minified: true }
+  dependencies:
+    - geolocation_leaflet/leaflet
 
 mapfeature.leaflet_control_fullscreen:
   js:
