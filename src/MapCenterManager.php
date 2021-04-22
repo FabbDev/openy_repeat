@@ -7,11 +7,14 @@ use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Component\Utility\SortArray;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Search plugin manager.
  */
 class MapCenterManager extends DefaultPluginManager {
+
+  use StringTranslationTrait;
 
   /**
    * Constructs an MapCenterManager object.
