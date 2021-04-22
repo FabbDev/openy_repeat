@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\geolocation\Functional;
+namespace Drupal\Tests\geolocation_leaflet\Functional;
 
 use Drupal\Tests\BrowserTestBase;
 
@@ -9,7 +9,7 @@ use Drupal\Tests\BrowserTestBase;
  *
  * @group geolocation
  */
-class GeolocationViewsSettingsTest extends BrowserTestBase {
+class LeafletViewsSettingsTest extends BrowserTestBase {
 
   /**
    * Modules to enable for this test.
@@ -23,8 +23,8 @@ class GeolocationViewsSettingsTest extends BrowserTestBase {
     'taxonomy',
     'geolocation',
     'geolocation_demo',
-    'geolocation_google_maps',
-    'geolocation_google_maps_demo',
+    'geolocation_leaflet',
+    'geolocation_leaflet_demo',
     'views_ui',
   ];
 
@@ -44,7 +44,7 @@ class GeolocationViewsSettingsTest extends BrowserTestBase {
     $admin_user = $this->drupalCreateUser($permissions);
     $this->drupalLogin($admin_user);
 
-    $this->drupalGet('admin/structure/views/view/geolocation_demo_common_map');
+    $this->drupalGet('admin/structure/views/view/geolocation_demo_leaflet_common_map');
 
     // Add click sorting for all fields where this is possible.
     $this->clickLink('Settings');

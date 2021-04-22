@@ -1,6 +1,6 @@
 /**
  * @file
- * Javascript for the Google Geocoding API geocoder.
+ * Javascript for the Photon geocoder.
  */
 
 /**

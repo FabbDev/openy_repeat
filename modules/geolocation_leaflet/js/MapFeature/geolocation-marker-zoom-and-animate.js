@@ -8,7 +8,7 @@
   'use strict';
 
   /**
-   * Google MarkerIcon.
+   * Marker zoom by anchor.
    *
    * @type {Drupal~behavior}
    *
