@@ -6,6 +6,7 @@ use Drupal\geolocation_google_maps\Plugin\geolocation\MapProvider\GoogleMaps;
 use GuzzleHttp\Exception\RequestException;
 use Drupal\Component\Serialization\Json;
 use Drupal\geolocation_google_maps\GoogleGeocoderBase;
+use Drupal\geolocation\KeyProvider;
 use Drupal\Core\Render\BubbleableMetadata;
 
 /**
@@ -96,10 +97,10 @@ class GoogleGeocodingAPI extends GoogleGeocoderBase {
     $request_url .= '/maps/api/geocode/json?address=' . urlencode($address);
 
     if (!empty($config->get('google_map_api_server_key'))) {
-      $request_url .= '&key=' . $config->get('google_map_api_server_key');
+      $request_url .= '&key=' . KeyProvider::getKeyValue($config->get('google_map_api_server_key'));
     }
     elseif (!empty($config->get('google_map_api_key'))) {
-      $request_url .= '&key=' . $config->get('google_map_api_key');
+      $request_url .= '&key=' . KeyProvider::getKeyValue($config->get('google_map_api_key'));
     }
     if (!empty($this->configuration['component_restrictions'])) {
       $request_url .= '&components=';
@@ -178,10 +179,10 @@ class GoogleGeocodingAPI extends GoogleGeocoderBase {
     $request_url .= '/maps/api/geocode/json?latlng=' . (float) $latitude . ',' . (float) $longitude;
 
     if (!empty($config->get('google_map_api_server_key'))) {
-      $request_url .= '&key=' . $config->get('google_map_api_server_key');
+      $request_url .= '&key=' . KeyProvider::getKeyValue($config->get('google_map_api_server_key'));
     }
-    elseif (!empty($config->get('google_map_api_key'))) {
-      $request_url .= '&key=' . $config->get('google_map_api_key');
+    elseif (!empty($this->get('google_map_api_key'))) {
+      $request_url .= '&key=' . KeyProvider::getKeyValue($config->get('google_map_api_key'));
     }
 
     if (!empty($config->get('google_map_custom_url_parameters')['language'])) {
