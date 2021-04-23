@@ -1,0 +1,8 @@
+name: Geolocation - Geocodio
+type: module
+description: 'Geocodio provider.'
+core_version_requirement: ^8.7.7 || ^9
+package: Geolocation
+configure: geolocation_geocodio.settings
+dependencies:
+  - geolocation:geolocation
