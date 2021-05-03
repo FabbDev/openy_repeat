@@ -181,7 +181,7 @@ class GoogleGeocodingAPI extends GoogleGeocoderBase {
     if (!empty($config->get('google_map_api_server_key'))) {
       $request_url .= '&key=' . KeyProvider::getKeyValue($config->get('google_map_api_server_key'));
     }
-    elseif (!empty($this->get('google_map_api_key'))) {
+    elseif (!empty($config->get('google_map_api_key'))) {
       $request_url .= '&key=' . KeyProvider::getKeyValue($config->get('google_map_api_key'));
     }
 
