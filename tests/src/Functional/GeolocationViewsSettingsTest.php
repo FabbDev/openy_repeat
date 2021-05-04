@@ -36,7 +36,7 @@ class GeolocationViewsSettingsTest extends BrowserTestBase {
   /**
    * Tests the Views admin UI and field handlers.
    */
-  public function testViewsAdmin() {
+  public function testViewsMapSettings() {
     $permissions = [
       'access administration pages',
       'administer views',
@@ -50,6 +50,27 @@ class GeolocationViewsSettingsTest extends BrowserTestBase {
     $this->clickLink('Settings');
     $edit = [
       'style_options[centre][fit_bounds][enable]' => 1,
+    ];
+    $this->submitForm($edit, 'Apply');
+  }
+
+  /**
+   * Tests the Views admin UI and field handlers.
+   */
+  public function testViewsProximitySettings() {
+    $permissions = [
+      'access administration pages',
+      'administer views',
+    ];
+    $admin_user = $this->drupalCreateUser($permissions);
+    $this->drupalLogin($admin_user);
+
+    $this->drupalGet('admin/structure/views/view/geolocation_demo_proximity_filter_sort');
+
+    // Add click sorting for all fields where this is possible.
+    $this->clickLink('Content: Geolocation Demo Single - Proximity Form');
+    $edit = [
+      'options[center][coordinates][enable]' => 1,
     ];
     $this->submitForm($edit, 'Apply');
   }

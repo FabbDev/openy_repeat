@@ -6,11 +6,14 @@ use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Component\Utility\SortArray;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Search plugin manager.
  */
 class LocationManager extends DefaultPluginManager {
+
+  use StringTranslationTrait;
 
   /**
    * Constructs an LocationManager object.
