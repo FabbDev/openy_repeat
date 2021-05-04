@@ -14,17 +14,28 @@ class KeyProvider {
    *
    * So that we don't need to store plain text api key secrets in config file.
    */
-  public static function getKeyValue($key) {
+  public static function getKeyValue($api_key) {
+    if (empty($api_key)) {
+      return $api_key;
+    }
+
     // If the "Key" module exists, assume we are storing the key name instead of
     // the actual value, which should be a secret not saved in config.
-    if (\Drupal::moduleHandler()->moduleExists('key')) {
-      $key = \Drupal::service('key.repository')
-        ->getKey($key)
-        ->getKeyValue();
+    if (!\Drupal::moduleHandler()->moduleExists('key')) {
+      return $api_key;
     }
-    // Without key module, fallback to the insecure way of storing api key in
-    // config file.
-    return $key;
+
+    $store = \Drupal::service('key.repository')->getKey($api_key);
+    if (empty($store)) {
+      return $api_key;
+    }
+
+    $store_key = $store->getKeyValue();
+    if (empty($store_key)) {
+      return $api_key;
+    }
+
+    return $store_key;
   }
 
 }
