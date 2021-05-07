@@ -444,7 +444,7 @@ abstract class GeolocationMapFormatterBase extends FormatterBase {
     $dependencies = parent::calculateDependencies();
     $settings = $this->getSettings();
 
-    if (!empty($settings['info_text'])) {
+    if (!empty($settings['info_text']['format'])) {
       $filter_format = FilterFormat::load($settings['info_text']['format']);
     }
 
