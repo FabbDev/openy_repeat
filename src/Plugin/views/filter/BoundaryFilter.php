@@ -272,7 +272,10 @@ class BoundaryFilter extends FilterPluginBase implements ContainerFactoryPluginI
         $geocoder_configuration
       );
 
-      if (!empty($geocoder_plugin)) {
+      if (
+        !empty($geocoder_plugin)
+        && !empty($input[$this->options['expose']['identifier']]['geolocation_geocoder_address'])
+      ) {
         $location_data = $geocoder_plugin->geocode($input[$this->options['expose']['identifier']]['geolocation_geocoder_address']);
 
         // Location geocoded server-side. Add to input for later processing.
