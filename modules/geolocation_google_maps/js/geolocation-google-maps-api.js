@@ -451,7 +451,6 @@
   Drupal.geolocation.google.load = function () {
     // Check for Google Maps.
     if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
-      console.error('Geolocation - GoogleMaps could not be initialized.'); // eslint-disable-line no-console .
       return;
     }
 
