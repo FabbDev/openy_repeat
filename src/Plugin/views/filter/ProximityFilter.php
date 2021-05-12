@@ -85,8 +85,9 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
       '#default_value' => $this->options['unit'],
       '#weight' => 6,
       '#options' => [
-        'mi' => $this->t('Miles'),
         'km' => $this->t('Kilometers'),
+        'mi' => $this->t('Miles'),
+        'nm' => $this->t('Nautical Miles'),
       ],
     ];
 
