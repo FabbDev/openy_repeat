@@ -43,7 +43,11 @@
             var newLabel = {};
             var currentLabel = currentMarker.getLabel();
 
-            var text = '';
+            if (typeof currentLabel === 'undefined') {
+              return;
+            }
+
+            var text;
             if (typeof currentLabel === 'string') {
               text = currentLabel;
             }
