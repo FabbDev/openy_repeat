@@ -28,7 +28,6 @@
           map.addInitializedCallback(function (map) {
             jQuery.each(map.leafletMap.controls, function (index, control) {
               var currentControlContainer = control.getContainer();
-              console.log(currentControlContainer.classList, "Class list");
               if (!currentControlContainer.classList.contains('leaflet_control_recenter')) {
                 return;
               }
