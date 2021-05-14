@@ -112,6 +112,8 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
   public function valueForm(&$form, FormStateInterface $form_state) {
     parent::valueForm($form, $form_state);
 
+    $form['#tree'] = TRUE;
+
     if (!isset($form['value']['value'])) {
       $form['value'] = array_replace($form['value'], [
         '#type' => 'number',
