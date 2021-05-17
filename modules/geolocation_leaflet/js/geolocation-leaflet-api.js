@@ -60,12 +60,14 @@
     var that = this;
 
     leafletPromise.then(function () {
+
+      var leafletMapSettings = that.settings.leaflet_settings;
+      leafletMapSettings.center = [that.lat, that.lng];
+      leafletMapSettings.zoomControl = false;
+      leafletMapSettings.crs = L.CRS[that.settings.leaflet_settings.crs];
+
       /** @type {Map} */
-      var leafletMap = L.map(that.container.get(0), {
-        center: [that.lat, that.lng],
-        zoom: that.settings.leaflet_settings.zoom,
-        zoomControl: false
-      });
+      var leafletMap = L.map(that.container.get(0), leafletMapSettings);
 
       var markerLayer = L.layerGroup().addTo(leafletMap);
 
