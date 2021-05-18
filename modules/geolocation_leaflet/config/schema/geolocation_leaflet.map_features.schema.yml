@@ -102,6 +102,18 @@ plugin.plugin_configuration.geolocation.map_feature.leaflet_control_recenter:
   type: geolocation.map_feature_settings.leaflet.control
   label: 'Control Recenter'
 
+plugin.plugin_configuration.geolocation.map_feature.leaflet_control_attribution:
+  type: geolocation.map_feature_settings.leaflet.control
+  label: 'Control Attribution'
+  mapping:
+    settings:
+      type: mapping
+      label: 'Settings'
+      mapping:
+        prefix:
+          type: string
+          label: 'Prefix'
+
 plugin.plugin_configuration.geolocation.map_feature.leaflet_control_scale:
   type: geolocation.map_feature_settings.leaflet.control
   label: 'Control Scale'

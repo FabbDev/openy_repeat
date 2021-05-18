@@ -64,6 +64,7 @@
       var leafletMapSettings = that.settings.leaflet_settings;
       leafletMapSettings.center = [that.lat, that.lng];
       leafletMapSettings.zoomControl = false;
+      leafletMapSettings.attributionControl = false;
       leafletMapSettings.crs = L.CRS[that.settings.leaflet_settings.crs];
 
       /** @type {Map} */
@@ -72,9 +73,7 @@
       var markerLayer = L.layerGroup().addTo(leafletMap);
 
       // Set the tile layer.
-      var tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(leafletMap);
+      var tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(leafletMap);
 
       that.leafletMap = leafletMap;
       that.markerLayer = markerLayer;

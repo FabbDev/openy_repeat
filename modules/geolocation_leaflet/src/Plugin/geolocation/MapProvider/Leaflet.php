@@ -62,6 +62,12 @@ class Leaflet extends MapProviderBase {
           'leaflet_control_zoom' => [
             'enabled' => TRUE,
           ],
+          'leaflet_control_attribution' => [
+            'enabled' => TRUE,
+            'settings' => [
+              'position' => 'bottomright',
+            ],
+          ],
           'leaflet_marker_popup' => [
             'enabled' => TRUE,
           ],
