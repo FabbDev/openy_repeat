@@ -95,6 +95,10 @@
         map.leafletMap.on('contextmenu', /** @param {LeafletMouseEvent} e */ function (e) {
           map.contextClickCallback({lat: e.latlng.lat, lng: e.latlng.lng});
         });
+
+        map.leafletMap.on('moveend', /** @param {LeafletEvent} e */ function (e) {
+          map.boundsChangedCallback(map.leafletMap.getBounds());
+        });
       });
 
       that.initializedCallback();

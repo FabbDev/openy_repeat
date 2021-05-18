@@ -203,7 +203,6 @@ class BoundaryFilter extends FilterPluginBase implements ContainerFactoryPluginI
       && !empty($form[$identifier])
       && !empty($this->options['expose']['geocoder_plugin_settings'])
     ) {
-
       $geocoder_configuration = $this->options['expose']['geocoder_plugin_settings']['settings'];
 
       /** @var \Drupal\geolocation\GeocoderInterface $geocoder_plugin */

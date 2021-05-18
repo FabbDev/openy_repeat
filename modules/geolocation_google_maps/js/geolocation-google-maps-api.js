@@ -124,6 +124,10 @@
       google.maps.event.addListenerOnce(map.googleMap, 'tilesloaded', function () {
         map.populatedCallback();
       });
+
+      google.maps.event.addListener(map.googleMap, 'bounds_changed', function () {
+        map.boundsChangedCallback(map.googleMap.getBounds());
+      });
     });
 
     if (this.initialized) {
