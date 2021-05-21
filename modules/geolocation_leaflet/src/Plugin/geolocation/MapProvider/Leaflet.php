@@ -454,9 +454,6 @@ class Leaflet extends MapProviderBase {
    * {@inheritdoc}
    */
   public function alterRenderArray(array $render_array, array $map_settings, array $context = []) {
-
-    $map_settings = $this->getSettings($map_settings);
-
     if (
       !empty($map_settings['maxBounds'])
       && !empty($map_settings['maxBounds']['north_east_bound'])

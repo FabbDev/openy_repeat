@@ -41,8 +41,6 @@ class ControlDirections extends ControlGoogleElementBase {
    * {@inheritdoc}
    */
   public function getSettingsForm(array $settings, array $parents) {
-    $settings = $this->getSettings($settings);
-
     $states_prefix = array_shift($parents) . '[' . implode('][', $parents) . ']';
 
     $form = parent::getSettingsForm($settings, $parents);
@@ -141,9 +139,6 @@ class ControlDirections extends ControlGoogleElementBase {
    *   Directions form.
    */
   public function getDirectionsControlForm(array $settings) {
-
-    $settings = $this->getSettings($settings);
-
     $form = [
       '#type' => 'form',
       '#form_id' => 'directions_control',
@@ -242,8 +237,6 @@ class ControlDirections extends ControlGoogleElementBase {
    */
   public function alterMap(array $render_array, array $feature_settings, array $context = []) {
     $render_array = parent::alterMap($render_array, $feature_settings, $context);
-
-    $feature_settings = $this->getSettings($feature_settings);
 
     $render_array['#controls']['directions'] = $this->getDirectionsControlForm($feature_settings);
 

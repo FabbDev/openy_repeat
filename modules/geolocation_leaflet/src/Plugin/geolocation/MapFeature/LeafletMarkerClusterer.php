@@ -36,8 +36,6 @@ class LeafletMarkerClusterer extends MapFeatureBase {
    * {@inheritdoc}
    */
   public function getSettingsForm(array $settings, array $parents) {
-    $settings = $this->getSettings($settings);
-
     $options = [
       'show_coverage_on_hover' => $this->t('Hovering over a cluster shows the bounds of its markers.'),
       'zoom_to_bounds_on_click' => $this->t('Clicking a cluster zooms to the bounds.'),
