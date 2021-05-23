@@ -220,7 +220,10 @@
           color: shapeSettings.strokeColor,
           opacity: shapeSettings.strokeOpacity,
           weight: shapeSettings.strokeWidth
-        }).bindTooltip(shapeSettings.title);
+        });
+        if (shapeSettings.title) {
+          shape.bindTooltip(shapeSettings.title);
+        }
         break;
 
       case 'polygon':
@@ -230,7 +233,10 @@
           weight: shapeSettings.strokeWidth,
           fillColor: shapeSettings.fillColor,
           fillOpacity: shapeSettings.fillOpacity
-        }).bindTooltip(shapeSettings.title);
+        });
+        if (shapeSettings.title) {
+          shape.bindTooltip(shapeSettings.title);
+        }
         break;
     }
 

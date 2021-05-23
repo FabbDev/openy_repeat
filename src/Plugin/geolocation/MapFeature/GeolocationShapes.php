@@ -1,33 +1,34 @@
 <?php
 
-namespace Drupal\geolocation_google_maps\Plugin\geolocation\MapFeature;
+namespace Drupal\geolocation\Plugin\geolocation\MapFeature;
 
 use Drupal\geolocation\MapFeatureBase;
-use Drupal\Core\Render\BubbleableMetadata;
 
 /**
- * Provides Drawing.
+ * Redraw locations as shapes.
  *
  * @MapFeature(
- *   id = "drawing",
- *   name = @Translation("DEPRECATED - Drawing"),
- *   description = @Translation("Draw lines and areas over markers."),
- *   type = "google_maps",
+ *   id = "geolocation_shapes",
+ *   name = @Translation("Draw Shapes"),
+ *   description = @Translation("Draw shapes based on locations."),
+ *   type = "all",
  * )
  */
-class Drawing extends MapFeatureBase {
+class GeolocationShapes extends MapFeatureBase {
 
   /**
    * {@inheritdoc}
    */
   public static function getDefaultSettings() {
     return [
-      'polyline' => FALSE,
+      'remove_markers' => FALSE,
+      'polyline' => TRUE,
+      'polyline_title' => '',
       'strokeColor' => '#FF0000',
       'strokeOpacity' => 0.8,
-      'strokeWeight' => 2,
-      'geodesic' => FALSE,
+      'strokeWidth' => 2,
       'polygon' => FALSE,
+      'polygon_title' => '',
       'fillColor' => '#FF0000',
       'fillOpacity' => 0.35,
     ];
@@ -50,11 +51,28 @@ class Drawing extends MapFeatureBase {
   public function getSettingsForm(array $settings, array $parents) {
     $states_prefix = array_shift($parents) . '[' . implode('][', $parents) . ']';
 
+    $form['remove_markers'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Remove markers'),
+      '#description' => $this->t('Remove location elements and markers from output.'),
+      '#default_value' => $settings['remove_markers'],
+    ];
+
     $form['polyline'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Draw polyline'),
       '#description' => $this->t('A polyline is a linear overlay of connected line segments on the map.'),
       '#default_value' => $settings['polyline'],
+    ];
+    $form['polyline_title'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Polyline title (Tokens supported)'),
+      '#default_value' => $settings['polyline_title'],
+      '#states' => [
+        'visible' => [
+          ['input[name="' . $states_prefix . '[polyline]"]' => ['checked' => TRUE]],
+        ],
+      ],
     ];
     $form['strokeColor'] = [
       '#type' => 'textfield',
@@ -82,24 +100,12 @@ class Drawing extends MapFeatureBase {
         ],
       ],
     ];
-    $form['strokeWeight'] = [
+    $form['strokeWidth'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Stroke weight'),
+      '#title' => $this->t('Stroke width'),
       '#description' => $this->t('The stroke width in pixels.'),
       '#size' => 2,
-      '#default_value' => $settings['strokeWeight'],
-      '#states' => [
-        'visible' => [
-          ['input[name="' . $states_prefix . '[polyline]"]' => ['checked' => TRUE]],
-          ['input[name="' . $states_prefix . '[polygon]"]' => ['checked' => TRUE]],
-        ],
-      ],
-    ];
-    $form['geodesic'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Geodesic lines'),
-      '#description' => $this->t('When true, edges of the polygon are interpreted as geodesic and will follow the curvature of the Earth. When false, edges of the polygon are rendered as straight lines in screen space.'),
-      '#default_value' => $settings['geodesic'],
+      '#default_value' => $settings['strokeWidth'],
       '#states' => [
         'visible' => [
           ['input[name="' . $states_prefix . '[polyline]"]' => ['checked' => TRUE]],
@@ -113,6 +119,16 @@ class Drawing extends MapFeatureBase {
       '#title' => $this->t('Draw polygon'),
       '#description' => $this->t('Polygons form a closed loop and define a filled region.'),
       '#default_value' => $settings['polygon'],
+    ];
+    $form['polygon_title'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Polygon title (Tokens supported)'),
+      '#default_value' => $settings['polygon_title'],
+      '#states' => [
+        'visible' => [
+          ['input[name="' . $states_prefix . '[polygon]"]' => ['checked' => TRUE]],
+        ],
+      ],
     ];
     $form['fillColor'] = [
       '#type' => 'textfield',
@@ -148,26 +164,45 @@ class Drawing extends MapFeatureBase {
   public function alterMap(array $render_array, array $feature_settings, array $context = []) {
     $render_array = parent::alterMap($render_array, $feature_settings, $context);
 
-    $render_array['#attached'] = BubbleableMetadata::mergeAttachments(
-      empty($render_array['#attached']) ? [] : $render_array['#attached'],
-      [
-        'library' => [
-          'geolocation_google_maps/mapfeature.' . $this->getPluginId(),
-        ],
-        'drupalSettings' => [
-          'geolocation' => [
-            'maps' => [
-              $render_array['#id'] => [
-                $this->getPluginId() => [
-                  'enable' => TRUE,
-                  'settings' => $feature_settings,
-                ],
-              ],
-            ],
-          ],
-        ],
-      ]
-    );
+    if (empty($render_array['#children']['locations'])) {
+      return TRUE;
+    }
+
+    $coordinates = [];
+    foreach ($render_array['#children']['locations'] as $location) {
+      if (empty($location['#coordinates'])) {
+        continue;
+      }
+      $coordinates[] = $location['#coordinates'];
+    }
+
+    if ($feature_settings['remove_markers']) {
+      unset($render_array['#children']['locations']);
+    }
+
+    if ($feature_settings['polyline']) {
+      $render_array['#children']['polyline'] = [
+        '#type' => 'geolocation_map_polyline',
+        '#coordinates' => $coordinates,
+        '#title' => \Drupal::token()->replace($feature_settings['polyline_title'], $context),
+        '#stroke_color' => $feature_settings['strokeColor'],
+        '#stroke_width' => $feature_settings['strokeWidth'],
+        '#stroke_opacity' => $feature_settings['strokeOpacity'],
+      ];
+    }
+
+    if ($feature_settings['polygon']) {
+      $render_array['#children']['polygon'] = [
+        '#type' => 'geolocation_map_polygon',
+        '#coordinates' => $coordinates,
+        '#title' => \Drupal::token()->replace($feature_settings['polygon_title'], $context),
+        '#stroke_color' => $feature_settings['strokeColor'],
+        '#stroke_width' => $feature_settings['strokeWidth'],
+        '#stroke_opacity' => $feature_settings['strokeOpacity'],
+        '#fill_color' => $feature_settings['fillColor'],
+        '#fill_opacity' => $feature_settings['fillOpacity'],
+      ];
+    }
 
     return $render_array;
   }
