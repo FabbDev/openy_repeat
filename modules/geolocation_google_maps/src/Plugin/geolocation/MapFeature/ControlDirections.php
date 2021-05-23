@@ -138,7 +138,7 @@ class ControlDirections extends ControlGoogleElementBase {
    * @return array
    *   Directions form.
    */
-  public function getDirectionsControlForm(array $settings) {
+  public function getDirectionsControlForm(array $settings, array $context = []) {
     $form = [
       '#type' => 'form',
       '#form_id' => 'directions_control',
@@ -173,7 +173,7 @@ class ControlDirections extends ControlGoogleElementBase {
         $form['origin'] = [
           '#type' => 'hidden',
           '#name' => 'geolocation-google-maps-directions-controls-origin',
-          '#value' => $settings['origin_static_value'],
+          '#value' => \Drupal::token()->replace($settings['origin_static_value'], $context),
         ];
         break;
     }
@@ -194,7 +194,7 @@ class ControlDirections extends ControlGoogleElementBase {
         $form['destination'] = [
           '#type' => 'hidden',
           '#name' => 'geolocation-google-maps-directions-controls-destination',
-          '#value' => $settings['destination_static_value'],
+          '#value' => \Drupal::token()->replace($settings['destination_static_value'], $context),
         ];
         break;
     }
@@ -238,7 +238,7 @@ class ControlDirections extends ControlGoogleElementBase {
   public function alterMap(array $render_array, array $feature_settings, array $context = []) {
     $render_array = parent::alterMap($render_array, $feature_settings, $context);
 
-    $render_array['#controls']['directions'] = $this->getDirectionsControlForm($feature_settings);
+    $render_array['#controls']['directions'] = $this->getDirectionsControlForm($feature_settings, $context);
 
     switch ($feature_settings['directions_container']) {
       case 'above':
