@@ -59,6 +59,9 @@ plugin.plugin_configuration.geolocation.map_feature.leaflet_marker_clusterer:
         disable_clustering_at_zoom:
           type: integer
           label: 'Max Zoom for clustering'
+        custom_marker_settings:
+          type: string
+          label: 'Custom Marker Settings'
 
 geolocation.map_feature_settings.leaflet.control:
   type: geolocation.map_feature_settings
