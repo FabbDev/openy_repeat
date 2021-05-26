@@ -160,8 +160,15 @@ class Leaflet extends MapProviderBase {
         ['\Drupal\Core\Render\Element\RenderElement', 'preRenderGroup'],
       ],
     ];
+
+    $form['advanced_settings'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Advanced Settings'),
+    ];
+    $advanced_parents_string = $parents_string . '][advanced_settings';
+
     $form['minZoom'] = [
-      '#group' => $parents_string,
+      '#group' => $advanced_parents_string,
       '#type' => 'select',
       '#title' => $this->t('Min Zoom level'),
       '#options' => range(0, 20),
@@ -176,7 +183,7 @@ class Leaflet extends MapProviderBase {
       ],
     ];
     $form['maxZoom'] = [
-      '#group' => $parents_string,
+      '#group' => $advanced_parents_string,
       '#type' => 'select',
       '#title' => $this->t('Max Zoom level'),
       '#options' => range(0, 20),
@@ -192,6 +199,7 @@ class Leaflet extends MapProviderBase {
     ];
 
     $form['maxBounds'] = [
+      '#group' => $advanced_parents_string,
       '#type' => 'fieldset',
       '#title' => $this->t('Max Bounds'),
       '#description' => $this->t('When this option is set, the map restricts the view to the given geographical bounds, bouncing the user back if the user tries to pan outside the view. To set the restriction dynamically, use setMaxBounds method.'),
@@ -207,7 +215,7 @@ class Leaflet extends MapProviderBase {
       ],
     ];
     $form['crs'] = [
-      '#group' => $parents_string,
+      '#group' => $advanced_parents_string,
       '#type' => 'select',
       '#title' => $this->t('CRS'),
       '#options' => [
@@ -229,12 +237,13 @@ class Leaflet extends MapProviderBase {
       ],
     ];
     $form['preferCanvas'] = [
+      '#group' => $advanced_parents_string,
       '#type' => 'checkbox',
       '#title' => $this->t('Render Paths on a Canvas renderer. By default, all Paths are rendered in a SVG renderer.'),
       '#default_value' => $settings['preferCanvas'],
     ];
     $form['zoomSnap'] = [
-      '#group' => $parents_string,
+      '#group' => $advanced_parents_string,
       '#type' => 'number',
       '#title' => $this->t('Zoom Snap'),
       '#description' => $this->t("Forces the map's zoom level to always be a multiple of this, particularly right after a fitBounds() or a pinch-zoom. By default, the zoom level snaps to the nearest integer; lower values (e.g. 0.5 or 0.1) allow for greater granularity. A value of 0 means the zoom level will not be snapped after fitBounds or a pinch-zoom."),
@@ -248,7 +257,7 @@ class Leaflet extends MapProviderBase {
       ],
     ];
     $form['zoomDelta'] = [
-      '#group' => $parents_string,
+      '#group' => $advanced_parents_string,
       '#type' => 'number',
       '#title' => $this->t('Tap Tolerance'),
       '#description' => $this->t("Controls how much the map's zoom level will change after a zoomIn(), zoomOut(), pressing + or - on the keyboard, or using the zoom controls. Values smaller than 1 (e.g. 0.5) allow for greater granularity."),
@@ -262,32 +271,37 @@ class Leaflet extends MapProviderBase {
       ],
     ];
     $form['trackResize'] = [
+      '#group' => $advanced_parents_string,
       '#type' => 'checkbox',
       '#title' => $this->t('Automatically update map on browser window resize.'),
       '#default_value' => $settings['trackResize'],
     ];
     $form['boxZoom'] = [
+      '#group' => $advanced_parents_string,
       '#type' => 'checkbox',
       '#title' => $this->t('Map can be zoomed to a rectangular area specified by dragging the mouse while pressing the shift key.'),
       '#default_value' => $settings['boxZoom'],
     ];
     $form['doubleClickZoom'] = [
+      '#group' => $advanced_parents_string,
       '#type' => 'checkbox',
       '#title' => $this->t("Map can be zoomed in by double clicking on it and zoomed out by double clicking while holding shift. If passed 'center', double-click zoom will zoom to the center of the view regardless of where the mouse was."),
       '#default_value' => $settings['doubleClickZoom'],
     ];
     $form['dragging'] = [
+      '#group' => $advanced_parents_string,
       '#type' => 'checkbox',
       '#title' => $this->t('Map is draggable with mouse/touch or not.'),
       '#default_value' => $settings['dragging'],
     ];
     $form['zoomAnimation'] = [
+      '#group' => $advanced_parents_string,
       '#type' => 'checkbox',
       '#title' => $this->t("Map zoom animation is enabled. By default it's enabled in all browsers that support CSS3 Transitions except Android."),
       '#default_value' => $settings['zoomAnimation'],
     ];
     $form['zoomAnimationThreshold'] = [
-      '#group' => $parents_string,
+      '#group' => $advanced_parents_string,
       '#type' => 'number',
       '#title' => $this->t('Zoom Animation Threshold'),
       '#description' => $this->t("Won't animate zoom if the zoom difference exceeds this value."),
@@ -301,22 +315,25 @@ class Leaflet extends MapProviderBase {
       ],
     ];
     $form['fadeAnimation'] = [
+      '#group' => $advanced_parents_string,
       '#type' => 'checkbox',
       '#title' => $this->t("Tile fade animation is enabled. By default it's enabled in all browsers that support CSS3 Transitions except Android."),
       '#default_value' => $settings['fadeAnimation'],
     ];
     $form['markerZoomAnimation'] = [
+      '#group' => $advanced_parents_string,
       '#type' => 'checkbox',
       '#title' => $this->t("Markers animate their zoom with the zoom animation, if disabled they will disappear for the length of the animation. By default it's enabled in all browsers that support CSS3 Transitions except Android."),
       '#default_value' => $settings['markerZoomAnimation'],
     ];
     $form['inertia'] = [
+      '#group' => $advanced_parents_string,
       '#type' => 'checkbox',
       '#title' => $this->t("If enabled, panning of the map will have an inertia effect where the map builds momentum while dragging and continues moving in the same direction for some time. Feels especially nice on touch devices. Enabled by default unless running on old Android devices."),
       '#default_value' => $settings['inertia'],
     ];
     $form['inertiaDeceleration'] = [
-      '#group' => $parents_string,
+      '#group' => $advanced_parents_string,
       '#type' => 'number',
       '#title' => $this->t('Inertia Deceleration'),
       '#description' => $this->t("The rate with which the inertial movement slows down, in pixels/second²."),
@@ -330,13 +347,14 @@ class Leaflet extends MapProviderBase {
       ],
     ];
     $form['worldCopyJump'] = [
+      '#group' => $advanced_parents_string,
       '#type' => 'checkbox',
       '#title' => $this->t("With this option enabled, the map tracks when you pan to another 'copy' of the world and seamlessly jumps to the original one so that all overlays like markers and vector layers are still visible."),
       '#default_value' => $settings['worldCopyJump'],
     ];
 
     $form['easeLinearity'] = [
-      '#group' => $parents_string,
+      '#group' => $advanced_parents_string,
       '#type' => 'number',
       '#step' => 0.1,
       '#title' => $this->t('Ease Linearity'),
@@ -351,7 +369,7 @@ class Leaflet extends MapProviderBase {
       ],
     ];
     $form['maxBoundsViscosity'] = [
-      '#group' => $parents_string,
+      '#group' => $advanced_parents_string,
       '#type' => 'number',
       '#step' => 0.1,
       '#title' => $this->t('Max Bounds Viscosity'),
@@ -366,12 +384,13 @@ class Leaflet extends MapProviderBase {
       ],
     ];
     $form['keyboard'] = [
+      '#group' => $advanced_parents_string,
       '#type' => 'checkbox',
       '#title' => $this->t("Makes the map focusable and allows users to navigate the map with keyboard arrows and +/- keys."),
       '#default_value' => $settings['keyboard'],
     ];
     $form['keyboardPanDelta'] = [
-      '#group' => $parents_string,
+      '#group' => $advanced_parents_string,
       '#type' => 'number',
       '#title' => $this->t('Keyboard Pan Delta'),
       '#description' => $this->t("Amount of pixels to pan when pressing an arrow key."),
@@ -385,12 +404,13 @@ class Leaflet extends MapProviderBase {
       ],
     ];
     $form['scrollWheelZoom'] = [
+      '#group' => $advanced_parents_string,
       '#type' => 'checkbox',
       '#title' => $this->t("Map can be zoomed by using the mouse wheel. If passed 'center', it will zoom to the center of the view regardless of where the mouse was."),
       '#default_value' => $settings['scrollWheelZoom'],
     ];
     $form['wheelDebounceTime'] = [
-      '#group' => $parents_string,
+      '#group' => $advanced_parents_string,
       '#type' => 'number',
       '#title' => $this->t('Wheel Debounce Time'),
       '#description' => $this->t("Limits the rate at which a wheel can fire (in milliseconds). By default user can't zoom via wheel more often than once per 40 ms."),
@@ -404,7 +424,7 @@ class Leaflet extends MapProviderBase {
       ],
     ];
     $form['wheelPxPerZoomLevel'] = [
-      '#group' => $parents_string,
+      '#group' => $advanced_parents_string,
       '#type' => 'number',
       '#title' => $this->t('Wheel Pixel Per Zoom Level'),
       '#description' => $this->t("How many scroll pixels (as reported by L.DomEvent.getWheelDelta) mean a change of one full zoom level. Smaller values will make wheel-zooming faster (and vice versa)."),
@@ -418,12 +438,13 @@ class Leaflet extends MapProviderBase {
       ],
     ];
     $form['tap'] = [
+      '#group' => $advanced_parents_string,
       '#type' => 'checkbox',
       '#title' => $this->t("Enables mobile hacks for supporting instant taps (fixing 200ms click delay on iOS/Android) and touch holds (fired as contextmenu events)."),
       '#default_value' => $settings['tap'],
     ];
     $form['tapTolerance'] = [
-      '#group' => $parents_string,
+      '#group' => $advanced_parents_string,
       '#type' => 'number',
       '#title' => $this->t('Tap Tolerance'),
       '#description' => $this->t("The max number of pixels a user can shift his finger during touch for it to be considered a valid tap."),
@@ -437,11 +458,13 @@ class Leaflet extends MapProviderBase {
       ],
     ];
     $form['touchZoom'] = [
+      '#group' => $advanced_parents_string,
       '#type' => 'checkbox',
       '#title' => $this->t("Map can be zoomed by touch-dragging with two fingers. If passed 'center', it will zoom to the center of the view regardless of where the touch events (fingers) were. Enabled for touch-capable web browsers except for old Androids."),
       '#default_value' => $settings['touchZoom'],
     ];
     $form['bounceAtZoomLimits'] = [
+      '#group' => $advanced_parents_string,
       '#type' => 'checkbox',
       '#title' => $this->t("Set it to false if you don't want the map to zoom beyond min/max zoom and then bounce back when pinch-zooming."),
       '#default_value' => $settings['bounceAtZoomLimits'],
