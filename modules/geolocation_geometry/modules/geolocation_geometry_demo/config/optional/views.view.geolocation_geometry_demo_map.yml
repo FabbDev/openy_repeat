@@ -10,6 +10,9 @@ dependencies:
     - geolocation
     - geolocation_geometry
     - node
+  enforced:
+    module:
+      - geolocation_geometry_demo
 id: geolocation_geometry_demo_map
 label: 'Geolocation Geometry Demo - Map'
 module: views
@@ -65,8 +68,8 @@ display:
             fill_color: '#0033ff'
             fill_color_randomize: false
             fill_opacity: 0.1
-          title_field: none
-          label_field: none
+          title_field: title
+          label_field: title
           marker_icon_path: ''
           marker_row_number: 0
           centre:
@@ -896,17 +899,26 @@ display:
           data_provider_settings:
             stroke_color: '#ff0044'
             stroke_color_randomize: 0
-            stroke_width: 1
-            stroke_opacity: 0.8
+            stroke_width: '1'
+            stroke_opacity: '0.8'
             fill_color: '#0033ff'
             fill_color_randomize: 0
-            fill_opacity: 0.1
-          title_field: ''
-          label_field: ''
+            fill_opacity: '0.1'
+          title_field: title
+          label_field: title
           marker_icon_path: ''
           marker_row_number: 0
       pager:
         type: none
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - 'user.node_grants:view'
+      tags:
+        - 'config:field.storage.node.field_geolocation_geometry_point'
+        - 'config:field.storage.node.field_geolocation_geometry_polyg'
   page_1:
     display_plugin: page
     id: page_1
@@ -925,3 +937,12 @@ display:
         weight: 0
         context: '0'
         menu_name: tools
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - 'user.node_grants:view'
+      tags:
+        - 'config:field.storage.node.field_geolocation_geometry_point'
+        - 'config:field.storage.node.field_geolocation_geometry_polyg'

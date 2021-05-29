@@ -142,7 +142,7 @@ abstract class GeolocationGeometryBase extends FieldItemBase {
    */
   public static function generateSampleValue(FieldDefinitionInterface $field_definition) {
     $coordinates = self::getRandomCoordinates();
-    $values['wkt'] = 'POINT (' . $coordinates['latitude'] . ' ' . $coordinates['longitude'] . ')';
+    $values['wkt'] = 'POINT (' . $coordinates['longitude'] . ' ' . $coordinates['latitude'] . ')';
     return $values;
   }
 

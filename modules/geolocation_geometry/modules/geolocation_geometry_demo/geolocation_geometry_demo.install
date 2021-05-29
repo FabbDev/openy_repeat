@@ -44,10 +44,10 @@ function geolocation_geometry_demo_install() {
     ]);
     /** @var \Drupal\node\NodeInterface $node */
     $node->get('field_geolocation_geometry_point')->appendItem([
-      'wkt' => 'POINT(-44.6891741 169.1217044)',
+      'wkt' => 'POINT(169.1217044 -44.6891741)',
     ]);
     $node->get('field_geolocation_geometry_polyg')->appendItem([
-      'wkt' => 'POLYGON((-43.6891741 170.1217044, -43.6891741 168.1217044, -45.6891741 168.1217044, -45.6891741 170.1217044, -43.6891741 170.1217044))',]);
+      'wkt' => 'POLYGON((170.1217044 -43.6891741, 168.1217044 -43.6891741, 168.1217044 -45.6891741, 170.1217044 -45.6891741, 170.1217044 -43.6891741))',]);
     $node->save();
   }
 
