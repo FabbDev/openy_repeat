@@ -9,10 +9,8 @@ dependencies:
   module:
     - geolocation
     - geolocation_geometry
+    - geolocation_leaflet
     - node
-  enforced:
-    module:
-      - geolocation_geometry_demo
 id: geolocation_geometry_demo_map
 label: 'Geolocation Geometry Demo - Map'
 module: views
@@ -541,23 +539,7 @@ display:
                 weight: 0
                 settings:
                   position: topright
-                  geocoder: google_geocoding_api
-                  settings:
-                    label: Address
-                    description: 'Enter an address to be localized.'
-                    autocomplete_min_length: 1
-                    component_restrictions:
-                      route: ''
-                      locality: ''
-                      administrative_area: ''
-                      postal_code: ''
-                      country: ''
-                    boundary_restriction:
-                      south: ''
-                      west: ''
-                      north: ''
-                      east: ''
-                    region: ''
+                  geocoder: photon
                 enabled: false
               leaflet_control_fullscreen:
                 weight: 0
