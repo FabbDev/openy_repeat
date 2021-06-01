@@ -97,14 +97,15 @@ abstract class GeolocationGeometryBase extends FieldItemBase {
     if ($entity->getEntityType()->isRevisionable()) {
       /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
       $query = \Drupal::database()->update($table_mapping->getDedicatedRevisionTableName($field_storage_definition));
-      if (!empty($this->values['wkt'])) {
-        $query->expression($field_storage_definition->getName() . '_geometry', 'ST_GeomFromText(' . $field_storage_definition->getName() . '_wkt, 4326)');
-        $query->expression($field_storage_definition->getName() . '_geojson', 'ST_AsGeoJSON(ST_GeomFromText(' . $field_storage_definition->getName() . '_wkt, 4326))');
-      }
-      elseif (!empty($this->values['geojson'])) {
+      if (!empty($this->values['geojson'])) {
         $query->expression($field_storage_definition->getName() . '_geometry', 'ST_GeomFromGeoJSON(' . $field_storage_definition->getName() . '_geojson)');
         $query->expression($field_storage_definition->getName() . '_wkt', 'ST_AsText(ST_GeomFromGeoJSON(' . $field_storage_definition->getName() . '_geojson))');
       }
+      elseif (!empty($this->values['wkt'])) {
+        $query->expression($field_storage_definition->getName() . '_geometry', 'ST_GeomFromText(' . $field_storage_definition->getName() . '_wkt, 4326)');
+        $query->expression($field_storage_definition->getName() . '_geojson', 'ST_AsGeoJSON(ST_GeomFromText(' . $field_storage_definition->getName() . '_wkt, 4326))');
+      }
+
       if (empty($this->values['data'])) {
         $query->fields([$field_storage_definition->getName() . '_data' => serialize(NULL)]);
       }

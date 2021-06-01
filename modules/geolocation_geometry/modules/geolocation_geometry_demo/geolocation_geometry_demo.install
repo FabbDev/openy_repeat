@@ -44,10 +44,22 @@ function geolocation_geometry_demo_install() {
     ]);
     /** @var \Drupal\node\NodeInterface $node */
     $node->get('field_geolocation_geometry_point')->appendItem([
-      'wkt' => 'POINT(169.1217044 -44.6891741)',
+      'geojson' => '{"type": "Point", "coordinates": [169.1217044, -44.6891741]}',
     ]);
     $node->get('field_geolocation_geometry_polyg')->appendItem([
-      'wkt' => 'POLYGON((170.1217044 -43.6891741, 168.1217044 -43.6891741, 168.1217044 -45.6891741, 170.1217044 -45.6891741, 170.1217044 -43.6891741))',]);
+      'geojson' => '{
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [170.1217044, -43.6891741],
+            [168.1217044, -43.6891741],
+            [168.1217044, -45.6891741],
+            [170.1217044, -45.6891741],
+            [170.1217044, -43.6891741]
+          ]
+        ]
+      }',
+    ]);
     $node->save();
   }
 
@@ -62,8 +74,8 @@ function geolocation_geometry_demo_uninstall() {
   $node_storage->delete($node_storage->loadByProperties(['type' => 'geolocation_geometry_demo']));
 
   foreach ([
-   'field_geolocation_geometry_point',
-   'field_geolocation_geometry_polyg',
+    'field_geolocation_geometry_point',
+    'field_geolocation_geometry_polyg',
   ] as $field_storage_name) {
     $field_storage = FieldStorageConfig::loadByName('node', $field_storage_name);
     if ($field_storage) {

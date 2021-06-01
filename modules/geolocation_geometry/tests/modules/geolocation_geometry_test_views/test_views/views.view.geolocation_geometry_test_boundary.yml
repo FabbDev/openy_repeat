@@ -124,10 +124,10 @@ display:
           admin_label: ''
           operator: '='
           value:
-            lat_north_east: '168'
-            lng_north_east: '-43'
-            lat_south_west: '171'
-            lng_south_west: '-46'
+            lng_north_east: '168'
+            lat_north_east: '-43'
+            lng_south_west: '171'
+            lat_south_west: '-46'
           group: 1
           exposed: false
           is_grouped: false

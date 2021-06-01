@@ -38,7 +38,6 @@ class GeolocationGeometryPolygon extends GeolocationGeometryBase {
     $reference_point = self::getRandomCoordinates();
     $coordinates = [];
     for ($i = 1; $i <= 16; $i++) {
-
       $coordinates[] = self::getRandomCoordinates($reference_point);
     }
     $center_point = self::getCenterFromCoordinates($coordinates);
@@ -51,12 +50,16 @@ class GeolocationGeometryPolygon extends GeolocationGeometryBase {
     // POLYGONS need to be closed.
     $coordinates[] = $coordinates[0];
 
-    $values['wkt'] = 'POLYGON((';
+    $values['geojson'] = '{
+      "type": "Polygon",
+      "coordinates": [
+        [';
     foreach ($coordinates as $coordinate) {
-      $values['wkt'] .= $coordinate['longitude'] . ' ' . $coordinate['latitude'] . ',';
+      $values['geojson'] .= '[' . $coordinate['longitude'] . ', ' . $coordinate['latitude'] . '],';
     }
-    $values['wkt'] = rtrim($values['wkt'], ',');
-    $values['wkt'] .= '))';
+    $values['geojson'] = rtrim($values['geojson'], ',');
+    $values['geojson'] .= ']]}';
+
     return $values;
   }
 
