@@ -118,14 +118,15 @@ abstract class GeolocationGeometryBase extends FieldItemBase {
     }
 
     $query = \Drupal::database()->update($table_mapping->getDedicatedDataTableName($field_storage_definition));
-    if (!empty($this->values['wkt'])) {
-      $query->expression($field_storage_definition->getName() . '_geometry', 'ST_GeomFromText(' . $field_storage_definition->getName() . '_wkt, 4326)');
-      $query->expression($field_storage_definition->getName() . '_geojson', 'ST_AsGeoJSON(ST_GeomFromText(' . $field_storage_definition->getName() . '_wkt, 4326))');
-    }
-    elseif (!empty($this->values['geojson'])) {
+    if (!empty($this->values['geojson'])) {
       $query->expression($field_storage_definition->getName() . '_geometry', 'ST_GeomFromGeoJSON(' . $field_storage_definition->getName() . '_geojson)');
       $query->expression($field_storage_definition->getName() . '_wkt', 'ST_AsText(ST_GeomFromGeoJSON(' . $field_storage_definition->getName() . '_geojson))');
     }
+    elseif (!empty($this->values['wkt'])) {
+      $query->expression($field_storage_definition->getName() . '_geometry', 'ST_GeomFromText(' . $field_storage_definition->getName() . '_wkt, 4326)');
+      $query->expression($field_storage_definition->getName() . '_geojson', 'ST_AsGeoJSON(ST_GeomFromText(' . $field_storage_definition->getName() . '_wkt, 4326))');
+    }
+
     if (empty($this->values['data'])) {
       $query->fields([$field_storage_definition->getName() . '_data' => serialize(NULL)]);
     }
@@ -143,7 +144,7 @@ abstract class GeolocationGeometryBase extends FieldItemBase {
    */
   public static function generateSampleValue(FieldDefinitionInterface $field_definition) {
     $coordinates = self::getRandomCoordinates();
-    $values['wkt'] = 'POINT (' . $coordinates['longitude'] . ' ' . $coordinates['latitude'] . ')';
+    $values['geojson'] = '{"type": "Point", "coordinates": [' . $coordinates['longitude'] . ', ' . $coordinates['latitude'] . ']}';
     return $values;
   }
 
