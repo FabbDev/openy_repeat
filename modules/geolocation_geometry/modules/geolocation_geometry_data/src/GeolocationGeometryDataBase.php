@@ -6,7 +6,7 @@ use Shapefile\ShapefileReader;
 use Shapefile\ShapefileException;
 
 /**
- * Class GeolocationGeometryDataBase.
+ * Class Geolocation GeometryData Base.
  *
  * @package Drupal\geolocation_geometry_data
  */

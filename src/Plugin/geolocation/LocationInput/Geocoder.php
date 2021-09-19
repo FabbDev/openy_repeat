@@ -94,7 +94,9 @@ class Geocoder extends LocationInputBase implements LocationInputInterface, Cont
         '#title' => $this->t('Geocoder plugin'),
         '#default_value' => $settings['plugin_id'],
         '#ajax' => [
-          'callback' => [get_class($this->geocoderManager), 'addGeocoderSettingsFormAjax'],
+          'callback' => [
+            get_class($this->geocoderManager), 'addGeocoderSettingsFormAjax',
+          ],
           'wrapper' => 'location-input-geocoder-plugin-settings',
           'effect' => 'fade',
         ],

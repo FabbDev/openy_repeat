@@ -85,7 +85,7 @@ function geolocation_update_8202(&$sandbox) {
     foreach (\Drupal::entityTypeManager()->getStorage('view')->loadMultiple() as $views_id => $view) {
       $resave_view = FALSE;
 
-      /* @var \Drupal\views\Entity\View $view */
+      /** @var \Drupal\views\Entity\View $view */
       $displays = $view->get('display');
       foreach ($displays as $display_id => $display) {
         if (empty($display['display_options']['style']['type'])) {
@@ -155,7 +155,7 @@ function geolocation_update_8203(&$sandbox) {
   foreach (\Drupal::entityTypeManager()->getStorage('view')->loadMultiple() as $views_id => $view) {
     $resave_view = FALSE;
 
-    /* @var \Drupal\views\Entity\View $view */
+    /** @var \Drupal\views\Entity\View $view */
     $displays = $view->get('display');
     foreach ($displays as $display_id => $display) {
       if (

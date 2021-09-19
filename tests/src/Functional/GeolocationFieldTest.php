@@ -53,7 +53,10 @@ class GeolocationFieldTest extends BrowserTestBase {
   protected function setUp() {
     parent::setUp();
 
-    $this->articleCreator = $this->drupalCreateUser(['create geolocation_default_article content', 'edit own geolocation_default_article content']);
+    $this->articleCreator = $this->drupalCreateUser([
+      'create geolocation_default_article content',
+      'edit own geolocation_default_article content',
+    ]);
     $this->drupalLogin($this->articleCreator);
   }
 
@@ -95,7 +98,7 @@ class GeolocationFieldTest extends BrowserTestBase {
     $this->assertSession()->responseContains($lat);
     $this->assertSession()->responseContains($lng);
 
-    // TODO: Figure out the actually created NID instead of guessing.
+    // @todo Figure out the actually created NID instead of guessing.
     $this->drupalGet('node/101/edit');
 
     $this->assertSession()->responseContains(htmlspecialchars($lat_sexagesimal, ENT_QUOTES));

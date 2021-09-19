@@ -149,7 +149,9 @@ class BoundaryFilter extends FilterPluginBase implements ContainerFactoryPluginI
         '#title' => $this->t('Geocoder plugin'),
         '#default_value' => $geocoder_settings['plugin_id'],
         '#ajax' => [
-          'callback' => [get_class($this->geocoderManager), 'addGeocoderSettingsFormAjax'],
+          'callback' => [
+            get_class($this->geocoderManager), 'addGeocoderSettingsFormAjax',
+          ],
           'wrapper' => 'boundary-geocoder-plugin-settings',
           'effect' => 'fade',
         ],

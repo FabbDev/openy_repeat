@@ -3,9 +3,6 @@
 namespace Drupal\geolocation_geocodio\Plugin\geolocation\Geocoder;
 
 use GuzzleHttp\Exception\RequestException;
-use Drupal\Core\Url;
-use Drupal\Core\Render\BubbleableMetadata;
-use Drupal\Component\Serialization\Json;
 use Drupal\geolocation\GeocoderBase;
 use Drupal\geolocation\GeocoderInterface;
 use Geocodio\Geocodio as GeocodioApi;

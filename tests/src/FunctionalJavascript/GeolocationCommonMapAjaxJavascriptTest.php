@@ -144,8 +144,8 @@ class GeolocationCommonMapAjaxJavascriptTest extends GeolocationJavascriptTestBa
     $this->assertSession()->assertWaitOnAjaxRequest();
 
     $html = $session->getPage()->getHtml();
-    $this->assertContains('Location 1', $html);
-    $this->assertNotContains('Location 3', $html);
+    $this->assertStringContainsString('Location 1', $html);
+    $this->assertStringNotContainsString('Location 3', $html);
   }
 
 }

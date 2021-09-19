@@ -14,7 +14,7 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Component\Utility\Html;
 
 /**
- * Class DataProviderBase.
+ * Class DataProvider Base.
  *
  * @package Drupal\geolocation
  */
