@@ -143,7 +143,14 @@ class GoogleStaticMaps extends GoogleMapsProviderBase {
       $static_map_url .= $marker_string;
     }
 
-    return ['#markup' => '<img src="' . $static_map_url . '">'];
+    return [
+      '#theme' => 'image',
+      '#uri' => $static_map_url,
+      '#google_static_map' => [
+        'map_settings' => $map_settings,
+        'context' => $context,
+      ],
+    ];
   }
 
 }
