@@ -18,7 +18,7 @@ class GeolocationFieldTest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = [
+  protected static $modules = [
     'field',
     'node',
     'taxonomy',
@@ -50,7 +50,7 @@ class GeolocationFieldTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->articleCreator = $this->drupalCreateUser([

@@ -9,7 +9,7 @@ geolocation_yandex.settings:
       type: sequence
       label: 'Yandex Maps API Packages'
       sequence:
-        type: label
+        type: string
         label: 'Package'
 
 geolocation.map_provider.yandex:
