@@ -18,7 +18,7 @@ class GeolocationCommonMapAjaxJavascriptTest extends GeolocationJavascriptTestBa
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'node',
     'user',
     'field',
@@ -39,7 +39,7 @@ class GeolocationCommonMapAjaxJavascriptTest extends GeolocationJavascriptTestBa
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->drupalCreateContentType(['type' => 'article', 'name' => 'Article']);
