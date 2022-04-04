@@ -1,17 +1,17 @@
 <?php
 
-namespace Drupal\geolocation_google_maps\Plugin\Field\FieldWidget;
+namespace Drupal\geolocation_leaflet\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\geolocation\Plugin\Field\FieldWidget\GeolocationGeometryWidgetBase;
 
 /**
- * Plugin implementation of 'geolocation_geometry_widget_google_maps' widget.
+ * Plugin implementation of 'geolocation_geometry_widget_leaflet' widget.
  *
  * @FieldWidget(
- *   id = "geolocation_geometry_widget_google_maps",
- *   label = @Translation("Geolocation Geometry Google Maps API - GeoJSON"),
+ *   id = "geolocation_geometry_widget_leaflet",
+ *   label = @Translation("Geolocation Geometry Leaflet - GeoJSON"),
  *   field_types = {
  *     "geolocation_geometry_point",
  *     "geolocation_geometry_multi_point",
@@ -24,17 +24,17 @@ use Drupal\geolocation\Plugin\Field\FieldWidget\GeolocationGeometryWidgetBase;
  *   }
  * )
  */
-class GeolocationGeometryWidgetGoogleMaps extends GeolocationGeometryWidgetBase {
+class GeolocationGeometryWidgetLeaflet extends GeolocationGeometryWidgetBase {
 
   /**
    * {@inheritdoc}
    */
-  static protected string $mapProviderId = 'google_maps';
+  static protected string $mapProviderId = 'leaflet';
 
   /**
    * {@inheritdoc}
    */
-  static protected string $mapProviderSettingsFormId = 'google_map_settings';
+  static protected string $mapProviderSettingsFormId = 'leaflet_settings';
 
   /**
    * {@inheritdoc}
@@ -44,7 +44,7 @@ class GeolocationGeometryWidgetGoogleMaps extends GeolocationGeometryWidgetBase 
 
     $element['#attached'] = [
       'library' => [
-        'geolocation_google_maps/widget.google_maps.geojson',
+        'geolocation_leaflet/widget.leaflet.geojson',
       ],
     ];
 
