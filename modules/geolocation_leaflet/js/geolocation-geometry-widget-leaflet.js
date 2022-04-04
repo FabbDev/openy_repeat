@@ -54,29 +54,41 @@
           };
       }
     },
-    layerToGeoJson: function /** @param {GeoJSON} layer */ (layer) {
-      var featureCollection = layer.toGeoJSON();
+    layerToGeoJson:
+      /**
+       * @param {GeoJSON} layer
+       * @param {String} geometryType
+       */
+      function (layer, geometryType) {
+        var featureCollection = layer.toGeoJSON();
 
-      switch (featureCollection.features.length) {
-        case 0:
-          return JSON.stringify('');
+        switch (featureCollection.features.length) {
+          case 0:
+            return JSON.stringify('');
 
-        case 1:
-          return JSON.stringify(featureCollection.features[0].geometry);
+          case 1:
+            return JSON.stringify(featureCollection.features[0].geometry);
 
-        default:
-          var geometryCollection = {
-            type: "GeometryCollection",
-            geometries: []
-          };
+          default:
+            var types = {
+              multi_polygon: 'MultiPolygon',
+              multi_polyline: 'MultiPolyline',
+              multi_point: 'MultiPoint',
+              default: 'GeometryCollection'
+            }
 
-          featureCollection.features.forEach(function (feature) {
-            geometryCollection.geometries.push(feature.geometry);
-          });
+            var geometryCollection = {
+              type: types[geometryType] || types['default'],
+              geometries: []
+            };
 
-          return JSON.stringify(geometryCollection);
-      }
-    },
+            featureCollection.features.forEach(function (feature) {
+              geometryCollection.geometries.push(feature.geometry);
+            });
+
+            return JSON.stringify(geometryCollection);
+        }
+      },
     attach: function (context) {
       var thisBehavior = this;
       $('.geolocation-geometry-widget-leaflet-geojson', context).once('geolocation-geometry-processed').each(function (index, item) {
@@ -102,13 +114,13 @@
           mapContainer.leafletMap.on(L.Draw.Event.CREATED, /** @param {Created} event */ function (event) {
             var layer = event.layer;
             geoJsonLayer.addLayer(layer);
-            inputWrapper.val(thisBehavior.layerToGeoJson(geoJsonLayer));
+            inputWrapper.val(thisBehavior.layerToGeoJson(geoJsonLayer, geometryType));
           });
           mapContainer.leafletMap.on(L.Draw.Event.EDITED, /** @param {Edited} event */ function (event) {
-            inputWrapper.val(thisBehavior.layerToGeoJson(geoJsonLayer));
+            inputWrapper.val(thisBehavior.layerToGeoJson(geoJsonLayer, geometryType));
           });
           mapContainer.leafletMap.on(L.Draw.Event.DELETED, /** @param {Deleted} event */ function (event) {
-            inputWrapper.val(thisBehavior.layerToGeoJson(geoJsonLayer));
+            inputWrapper.val(thisBehavior.layerToGeoJson(geoJsonLayer, geometryType));
           });
 
           if (inputWrapper.val()) {
