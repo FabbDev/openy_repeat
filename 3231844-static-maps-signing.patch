@@ -1,0 +1,177 @@
+diff --git a/modules/geolocation_google_maps/modules/geolocation_google_static_maps/config/install/geolocation_google_static_maps.settings.yml b/modules/geolocation_google_maps/modules/geolocation_google_static_maps/config/install/geolocation_google_static_maps.settings.yml
+new file mode 100644
+index 0000000..984fbb3
+--- /dev/null
++++ b/modules/geolocation_google_maps/modules/geolocation_google_static_maps/config/install/geolocation_google_static_maps.settings.yml
+@@ -0,0 +1 @@
++google_static_maps_url_secret: ''
+\ No newline at end of file
+diff --git a/modules/geolocation_google_maps/modules/geolocation_google_static_maps/geolocation_google_static_maps.links.menu.yml b/modules/geolocation_google_maps/modules/geolocation_google_static_maps/geolocation_google_static_maps.links.menu.yml
+new file mode 100644
+index 0000000..8238c8b
+--- /dev/null
++++ b/modules/geolocation_google_maps/modules/geolocation_google_static_maps/geolocation_google_static_maps.links.menu.yml
+@@ -0,0 +1,5 @@
++geolocation_google_static_maps.settings:
++  route_name: geolocation_google_static_maps.settings
++  title: 'Google Static Maps API settings'
++  parent: system.admin_config_services
++  description: 'Configure Google Static Maps URL secret et. al.'
+diff --git a/modules/geolocation_google_maps/modules/geolocation_google_static_maps/geolocation_google_static_maps.routing.yml b/modules/geolocation_google_maps/modules/geolocation_google_static_maps/geolocation_google_static_maps.routing.yml
+new file mode 100644
+index 0000000..223a8fa
+--- /dev/null
++++ b/modules/geolocation_google_maps/modules/geolocation_google_static_maps/geolocation_google_static_maps.routing.yml
+@@ -0,0 +1,7 @@
++geolocation_google_static_maps.settings:
++  path: '/admin/config/services/geolocation/google_static_maps'
++  defaults:
++    _form:  '\Drupal\geolocation_google_static_maps\Form\GeolocationGoogleStaticMapsSettings'
++    _title: 'Geolocation Google Static Maps settings'
++  requirements:
++    _permission: 'configure geolocation'
+diff --git a/modules/geolocation_google_maps/modules/geolocation_google_static_maps/src/Form/GeolocationGoogleStaticMapsSettings.php b/modules/geolocation_google_maps/modules/geolocation_google_static_maps/src/Form/GeolocationGoogleStaticMapsSettings.php
+new file mode 100644
+index 0000000..bb104fb
+--- /dev/null
++++ b/modules/geolocation_google_maps/modules/geolocation_google_static_maps/src/Form/GeolocationGoogleStaticMapsSettings.php
+@@ -0,0 +1,62 @@
++<?php
++
++namespace Drupal\geolocation_google_static_maps\Form;
++
++use Drupal\Core\Form\ConfigFormBase;
++use Drupal\Core\Form\FormStateInterface;
++
++/**
++ * Implements the GeolocationGoogleMapAPIkey form controller.
++ *
++ * @see \Drupal\Core\Form\FormBase
++ */
++class GeolocationGoogleStaticMapsSettings extends ConfigFormBase {
++
++  /**
++   * {@inheritdoc}
++   */
++  public function buildForm(array $form, FormStateInterface $form_state) {
++    $config = $this->configFactory->get('geolocation_google_static_maps.settings');
++
++    $form['google_static_maps_url_secret'] = [
++      '#type' => 'textfield',
++      '#title' => $this->t('Google Static Maps URL signage secret'),
++      '#default_value' => $config->get('google_static_maps_url_secret'),
++      '#description' => $this->t('Used in conjunction with an API key, a URL signing secret can tag API requests with a higher degree of security. To protect against unauthorised usage, requests without a signature are subject to a limit of 25,000 requests per day.'),
++    ];
++
++    return parent::buildForm($form, $form_state);
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function getFormId(): string {
++    return 'geolocation_google_static_maps_settings';
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  protected function getEditableConfigNames(): array {
++    return [
++      'geolocation_google_static_maps.settings',
++    ];
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function submitForm(array &$form, FormStateInterface $form_state) {
++    $config = $this->configFactory()->getEditable('geolocation_google_static_maps.settings');
++    $config->set('google_static_maps_url_secret', $form_state->getValue('google_static_maps_url_secret'));
++
++    $config->save();
++
++    // Confirmation on form submission.
++    \Drupal::messenger()->addMessage($this->t('The configuration options have been saved.'));
++
++    drupal_flush_all_caches();
++  }
++
++}
+diff --git a/modules/geolocation_google_maps/modules/geolocation_google_static_maps/src/Plugin/geolocation/MapProvider/GoogleStaticMaps.php b/modules/geolocation_google_maps/modules/geolocation_google_static_maps/src/Plugin/geolocation/MapProvider/GoogleStaticMaps.php
+index 5c305ae..29ffd09 100644
+--- a/modules/geolocation_google_maps/modules/geolocation_google_static_maps/src/Plugin/geolocation/MapProvider/GoogleStaticMaps.php
++++ b/modules/geolocation_google_maps/modules/geolocation_google_static_maps/src/Plugin/geolocation/MapProvider/GoogleStaticMaps.php
+@@ -25,7 +25,7 @@ class GoogleStaticMaps extends GoogleMapsProviderBase {
+   /**
+    * {@inheritdoc}
+    */
+-  public static function getDefaultSettings() {
++  public static function getDefaultSettings(): array {
+     return array_replace_recursive(
+       parent::getDefaultSettings(),
+       [
+@@ -40,7 +40,7 @@ class GoogleStaticMaps extends GoogleMapsProviderBase {
+   /**
+    * {@inheritdoc}
+    */
+-  public function getSettingsForm(array $settings, array $parents = []) {
++  public function getSettingsForm(array $settings, array $parents = []): array {
+     $form = parent::getSettingsForm($settings, $parents);
+     $parents_string = '';
+     if ($parents) {
+@@ -113,10 +113,44 @@ class GoogleStaticMaps extends GoogleMapsProviderBase {
+     return $form;
+   }
+ 
++  /**
++   * Sign a URL with a given crypto key.
++   *
++   * Note that this URL must be properly URL-encoded.
++   *
++   * @param string $url
++   *   URL to sign.
++   *
++   * @return string
++   *   Signed URL.
++   */
++  public function signUrl(string $url): string {
++    $config = \Drupal::config('geolocation_google_static_maps.settings');
++    $secret = $config->get('google_static_maps_url_secret');
++    if (empty($secret)) {
++      return $url;
++    }
++
++    $url_parts = parse_url($url);
++
++    $urlPartToSign = $url_parts['path'] . "?" . $url_parts['query'];
++
++    // Decode the private key into its binary format.
++    $decodedKey = base64_decode(str_replace(['-', '_'], ['+', '/'], $secret));
++
++    // Create a signature using the private key and the URL-encoded
++    // string using HMAC SHA1. This signature will be binary.
++    $signature = hash_hmac("sha1", $urlPartToSign, $decodedKey, TRUE);
++
++    $encodedSignature = str_replace(['+', '/'], ['-', '_'], base64_encode($signature));
++
++    return $url . '&signature=' . $encodedSignature;
++  }
++
+   /**
+    * {@inheritdoc}
+    */
+-  public function alterRenderArray(array $render_array, array $map_settings, array $context = []) {
++  public function alterRenderArray(array $render_array, array $map_settings, array $context = []): array {
+     $additional_parameters = [
+       'type' => strtolower($map_settings['type']),
+       'size' => filter_var($map_settings['width'], FILTER_SANITIZE_NUMBER_INT) . 'x' . filter_var($map_settings['height'], FILTER_SANITIZE_NUMBER_INT),
+@@ -145,7 +179,7 @@ class GoogleStaticMaps extends GoogleMapsProviderBase {
+ 
+     return [
+       '#theme' => 'image',
+-      '#uri' => $static_map_url,
++      '#uri' => $this->signUrl($static_map_url),
+       '#google_static_map' => [
+         'map_settings' => $map_settings,
+         'context' => $context,
