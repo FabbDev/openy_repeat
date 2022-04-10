@@ -50,6 +50,10 @@
         }
 
         $.each(Drupal.geolocation.widgets, function (index, widget) {
+          if (typeof widget.settings.address_field === 'undefined') {
+            return;
+          }
+
           if (settings.extraData._triggering_element_name.slice(-14) !== '[country_code]') {
             widget.addressTriggerCalled = false;
           }
@@ -107,7 +111,7 @@
           return;
         }
 
-        var geolocationWidgetWrapper = $('.field--name-' + sourceFieldName.replace(/_/g, '-'), context);
+        var geolocationWidgetWrapper = $('.field--name-' + sourceFieldName.replace(/_/g, '-'), context).once('geolocation-address-integration-enabled');
         if (geolocationWidgetWrapper.length === 0) {
           return;
         }
