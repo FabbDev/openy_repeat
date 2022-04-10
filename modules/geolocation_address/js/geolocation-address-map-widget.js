@@ -50,11 +50,11 @@
         }
 
         $.each(Drupal.geolocation.widgets, function (index, widget) {
-          if (settings.extraData._triggering_element_name.substr(-14) !== '[country_code]') {
+          if (settings.extraData._triggering_element_name.slice(-14) !== '[country_code]') {
             widget.addressTriggerCalled = false;
           }
 
-          if (settings.extraData._triggering_element_name.substr((widget.settings.address_field.length + 9) * -1) !== widget.settings.address_field + '_add_more') {
+          if (settings.extraData._triggering_element_name.slice((widget.settings.address_field.length + 9) * -1) !== widget.settings.address_field + '_add_more') {
             widget.addressAddMoreCalled = false;
           }
 
@@ -139,6 +139,7 @@
                 elements,
                 function (index, property) {
                   if (addressInput.find('.' + property).length) {
+                    console.log(addressInput.find('.' + property), "property");
                     if (addressInput.find('.' + property).val().trim().length) {
                       if (addressString.length > 0) {
                         addressString = addressString + ', ';
