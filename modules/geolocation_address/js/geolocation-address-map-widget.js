@@ -139,7 +139,6 @@
                 elements,
                 function (index, property) {
                   if (addressInput.find('.' + property).length) {
-                    console.log(addressInput.find('.' + property), "property");
                     if (addressInput.find('.' + property).val().trim().length) {
                       if (addressString.length > 0) {
                         addressString = addressString + ', ';
@@ -355,6 +354,10 @@
                   widget.removeInput(delta);
                   var address = widget.addressInputToString(addressInput);
                   widget.addressToCoordinates(address).then(function (location) {
+                    if (Object.keys(location).length === 0) {
+                      widget.removeMarker(delta);
+                      return;
+                    }
                     widget.locationAlteredCallback('address-changed', location, delta);
                   });
                 });
@@ -404,6 +407,9 @@
                 var address = widget.getAddressByDelta(delta);
                 var addressString = widget.addressInputToString(address);
                 if (!addressString) {
+                  widget.removeAddress(delta);
+                  widget.removeInput(delta);
+                  widget.removeMarker(delta);
                   return;
                 }
                 widget.addressToCoordinates(addressString).then(function (location) {
