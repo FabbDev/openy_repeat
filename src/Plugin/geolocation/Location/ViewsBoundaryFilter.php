@@ -12,12 +12,12 @@ use Drupal\geolocation\ViewsContextTrait;
  * Derive center from proximity filter.
  *
  * @Location(
- *   id = "views_proximity_filter",
- *   name = @Translation("Proximity filter"),
- *   description = @Translation("Set map center from proximity filter."),
+ *   id = "views_boundary_filter",
+ *   name = @Translation("Boundary filter"),
+ *   description = @Translation("Set map center from boundary filter."),
  * )
  */
-class ViewsProximityFilter extends LocationBase implements LocationInterface {
+class ViewsBoundaryFilter extends LocationBase implements LocationInterface {
 
   use ViewsContextTrait;
 
@@ -59,10 +59,10 @@ class ViewsProximityFilter extends LocationBase implements LocationInterface {
       /** @var \Drupal\views\Plugin\views\filter\FilterPluginBase $filter */
       foreach ($displayHandler->getHandlers('filter') as $delta => $filter) {
         if (
-          $filter->getPluginId() === 'geolocation_filter_proximity'
+          $filter->getPluginId() === 'geolocation_filter_boundary'
           && $filter !== $context
         ) {
-          $options[$delta] = $this->t('Proximity filter') . ' - ' . $filter->adminLabel();
+          $options[$delta] = $this->t('Boundary filter') . ' - ' . $filter->adminLabel();
         }
       }
     }
@@ -84,16 +84,26 @@ class ViewsProximityFilter extends LocationBase implements LocationInterface {
     }
 
     if (
-      array_key_exists('lat', $filter->value)
-      && array_key_exists('lng', $filter->value)
+      $filter->value['lat_south_west'] === ""
+      || $filter->value['lat_north_east'] === ""
+      || $filter->value['lng_south_west'] === ""
+      || $filter->value['lng_north_east'] === ""
     ) {
-      return [
-        'lat' => (float) $filter->value['lat'],
-        'lng' => (float) $filter->value['lng'],
-      ];
+      return parent::getCoordinates($location_option_id, $location_option_settings, $context);
     }
 
-    return $this->locationInputManager->getCoordinates((array) $filter->value['center'], $filter->options['location_input'], $filter);
+    // See documentation at
+    // http://tubalmartin.github.io/spherical-geometry-php/#LatLngBounds
+    $latitude = ($filter->value['lat_south_west'] + $filter->value['lat_north_east']) / 2;
+    $longitude = ($filter->value['lng_south_west'] + $filter->value['lng_north_east']) / 2;
+    if ($filter->value['lng_south_west'] > $filter->value['lng_north_east']) {
+      $longitude = $longitude == 0 ? 180 : fmod((fmod((($longitude + 180) - -180), 360) + 360), 360) + -180;
+    }
+
+    return [
+      'lat' => $latitude,
+      'lng' => $longitude,
+    ];
   }
 
 }
