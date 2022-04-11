@@ -201,7 +201,7 @@ class BoundaryFilter extends FilterPluginBase implements ContainerFactoryPluginI
 
     if (
       !$this->options['expose']['input_by_geocoding_widget']
-      || !empty($this->options['expose']['geocoder_plugin_settings'])
+      || empty($this->options['expose']['geocoder_plugin_settings'])
     ) {
       return;
     }
@@ -235,6 +235,7 @@ class BoundaryFilter extends FilterPluginBase implements ContainerFactoryPluginI
       $geocoder_plugin->formAttachGeocoder($form[$identifier . '_wrapper'][$identifier], $identifier);
     }
     // Drupal 8.
+    // @todo Remove.
     else {
       $form[$identifier]['lat_north_east']['#type'] = 'hidden';
       $form[$identifier]['lng_north_east']['#type'] = 'hidden';
