@@ -120,12 +120,6 @@ abstract class GoogleGeocoderBase extends GeocoderBase implements GeocoderInterf
           case 'postal_code':
             $component = 'postalCode';
             break;
-
-          case 'country':
-            $restriction = explode(',', $restriction);
-
-            break;
-
         }
 
         $render_array['#attached'] = BubbleableMetadata::mergeAttachments(
