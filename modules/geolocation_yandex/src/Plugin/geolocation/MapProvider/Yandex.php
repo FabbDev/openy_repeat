@@ -21,7 +21,7 @@ class Yandex extends MapProviderBase {
    *
    * @var string
    */
-  public static string $apiBaseUrl = 'https://api-maps.yandex.ru/2.1/';
+  public static $apiBaseUrl = 'https://api-maps.yandex.ru/2.1/';
 
   /**
    * {@inheritdoc}

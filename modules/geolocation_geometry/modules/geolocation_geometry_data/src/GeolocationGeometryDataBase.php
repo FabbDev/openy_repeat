@@ -74,7 +74,7 @@ abstract class GeolocationGeometryDataBase extends PluginBase {
   /**
    * Download batch callback.
    *
-   * @return string
+   * @return \Drupal\Core\StringTranslation\TranslatableMarkup
    *   Batch return.
    */
   public function download() {

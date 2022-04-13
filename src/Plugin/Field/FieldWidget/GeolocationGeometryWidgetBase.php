@@ -22,28 +22,28 @@ abstract class GeolocationGeometryWidgetBase extends WidgetBase implements Conta
    *
    * @var string
    */
-  static protected string $mapProviderId;
+  static protected $mapProviderId;
 
   /**
    * Map Provider Settings Form ID.
    *
    * @var string
    */
-  static protected string $mapProviderSettingsFormId;
+  static protected $mapProviderSettingsFormId;
 
   /**
    * The entity field manager.
    *
    * @var \Drupal\Core\Entity\EntityFieldManagerInterface
    */
-  protected EntityFieldManagerInterface $entityFieldManager;
+  protected $entityFieldManager;
 
   /**
    * Map Provider.
    *
    * @var \Drupal\geolocation\MapProviderInterface
    */
-  protected MapProviderInterface $mapProvider;
+  protected $mapProvider;
 
   /**
    * Constructs a WidgetBase object.

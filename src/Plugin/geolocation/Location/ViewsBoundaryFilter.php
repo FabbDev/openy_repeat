@@ -26,7 +26,7 @@ class ViewsBoundaryFilter extends LocationBase implements LocationInterface {
    *
    * @var \Drupal\geolocation\LocationInputManager
    */
-  protected LocationInputManager $locationInputManager;
+  protected $locationInputManager;
 
   /**
    * {@inheritdoc}

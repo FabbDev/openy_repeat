@@ -25,7 +25,7 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
    *
    * @var \Drupal\geolocation\LocationInputManager
    */
-  protected LocationInputManager $locationInputManager;
+  protected $locationInputManager;
 
   /**
    * Constructs a Handler object.

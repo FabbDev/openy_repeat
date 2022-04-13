@@ -84,7 +84,7 @@ abstract class DataProviderBase extends PluginBase implements DataProviderInterf
   /**
    * Add default settings.
    *
-   * @param array $settings
+   * @param array|null $settings
    *   Unaltered settings.
    *
    * @return array
