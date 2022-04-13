@@ -2,7 +2,6 @@
 
 namespace Drupal\geolocation\Plugin\views\style;
 
-use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Component\Utility\NestedArray;
@@ -46,8 +45,8 @@ class CommonMap extends GeolocationStyleBase {
   /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, $map_provider_manager, $map_center_manager, $data_provider_manager, FileUrlGeneratorInterface $file_url_generator) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $data_provider_manager, $file_url_generator);
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, $map_provider_manager, $map_center_manager, $data_provider_manager) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $data_provider_manager);
 
     $this->mapProviderManager = $map_provider_manager;
     $this->mapCenterManager = $map_center_manager;
@@ -63,8 +62,7 @@ class CommonMap extends GeolocationStyleBase {
       $plugin_definition,
       $container->get('plugin.manager.geolocation.mapprovider'),
       $container->get('plugin.manager.geolocation.mapcenter'),
-      $container->get('plugin.manager.geolocation.dataprovider'),
-      $container->get('file_url_generator')
+      $container->get('plugin.manager.geolocation.dataprovider')
     );
   }
 

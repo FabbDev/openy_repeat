@@ -2,11 +2,8 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\MapFeature;
 
-use Drupal\Core\File\FileUrlGeneratorInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\geolocation\MapFeatureBase;
 use Drupal\Core\Render\BubbleableMetadata;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides marker icon adjustment.
@@ -18,43 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   type = "leaflet",
  * )
  */
-class LeafletMarkerIcon extends MapFeatureBase implements ContainerFactoryPluginInterface {
-
-  /**
-   * The file url generator service.
-   *
-   * @var \Drupal\Core\File\FileUrlGeneratorInterface
-   */
-  protected FileUrlGeneratorInterface $fileUrlGenerator;
-
-  /**
-   * LeafletMarkerIcon constructor.
-   *
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin ID for the plugin instance.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   * @param \Drupal\Core\File\FileUrlGeneratorInterface $file_url_generator
-   *   TThe file url generator service.
-   */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, FileUrlGeneratorInterface $file_url_generator) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->fileUrlGenerator = $file_url_generator;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get('file_url_generator')
-    );
-  }
+class LeafletMarkerIcon extends MapFeatureBase {
 
   /**
    * {@inheritdoc}
@@ -234,13 +195,13 @@ class LeafletMarkerIcon extends MapFeatureBase implements ContainerFactoryPlugin
 
     if (!empty($feature_settings['marker_icon_path'])) {
       $iconPath = \Drupal::token()->replace($feature_settings['marker_icon_path'], $context);
-      $iconUrl = $this->fileUrlGenerator->generateString($iconPath);
+      $iconUrl = file_url_transform_relative(file_create_url($iconPath));
       $render_array['#attached']['drupalSettings']['geolocation']['maps'][$render_array['#id']][$this->getPluginId()]['markerIconPath'] = $iconUrl;
     }
 
     if (!empty($feature_settings['marker_shadow_path'])) {
       $shadowPath = \Drupal::token()->replace($feature_settings['marker_shadow_path'], $context);
-      $shadowUrl = $this->fileUrlGenerator->generateString($shadowPath);
+      $shadowUrl = file_url_transform_relative(file_create_url($shadowPath));
       $render_array['#attached']['drupalSettings']['geolocation']['maps'][$render_array['#id']][$this->getPluginId()]['markerShadowPath'] = $shadowUrl;
     }
 
