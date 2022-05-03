@@ -135,19 +135,22 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
       ]);
     }
 
-    $form['center'] = $this->locationInputManager->getForm($this->options['location_input'], $this, empty($this->value['center']) ? NULL : $this->value['center']);
+    $identifier = $this->options['expose']['identifier'];
+
+    $form[$identifier . '_center'] = $this->locationInputManager->getForm($this->options['location_input'], $this, empty($this->value['center']) ? NULL : $this->value['center']);
   }
 
   /**
    * {@inheritdoc}
    */
   protected function valueSubmit($form, FormStateInterface $form_state) {
-    $value = $form_state->getValue(['options', 'value', 'value']);
-    $distance = (float) $value;
+    $distance = (float) $form_state->getValue(['options', 'value', 'value']);
     $form_state->setValue(['options', 'value', 'value'], $distance);
+
+    $identifier = $this->options['expose']['identifier'];
     $form_state->setValue(
-      ['options', 'value', 'center'],
-      $form_state->getValue(['options', 'value', 'center'], [])
+      ['options', $identifier . '_center'],
+      $form_state->getValue(['options', $identifier . '_center'], [])
     );
 
     parent::valueSubmit($form, $form_state);
@@ -159,7 +162,9 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
   public function storeExposedInput($input, $status) {
     parent::storeExposedInput($input, $status);
 
-    if (empty($input['center'])) {
+    $identifier = $this->options['expose']['identifier'];
+
+    if (empty($input[$identifier . '_center'])) {
       return;
     }
 
@@ -171,7 +176,7 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
       return;
     }
 
-    $views_session[$this->view->storage->id()][$display_id]['center'] = $input['center'];
+    $views_session[$this->view->storage->id()][$display_id]['center'] = $input[$identifier . '_center'];
     $session->set('views', $views_session);
   }
 
@@ -181,21 +186,12 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
   public function acceptExposedInput($input): bool {
     parent::acceptExposedInput($input);
 
-    if (
-      array_key_exists('lat', $input)
-      && $input['lat'] !== ''
-      && array_key_exists('lng', $input)
-      && $input['lng'] !== ''
-    ) {
-      $this->value['lat'] = (float) $input['lat'];
-      $this->value['lng'] = (float) $input['lng'];
-    }
+    $this->value['center'] = [];
 
-    if (!empty($input['center'])) {
-      $this->value['center'] = $input['center'];
-    }
-    else {
-      $this->value['center'] = [];
+    $identifier = $this->options['expose']['identifier'];
+
+    if (!empty($input[$identifier . '_center'])) {
+      $this->value['center'] = $input[$identifier . '_center'];
     }
 
     return TRUE;
@@ -208,18 +204,7 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
     $table = $this->ensureMyTable();
     $this->value['value'] = self::convertDistance($this->value['value'], $this->options['unit']);
 
-    if (
-      array_key_exists('lat', $this->value)
-      && array_key_exists('lng', $this->value)
-    ) {
-      $center = [
-        'lat' => (float) $this->value['lat'],
-        'lng' => (float) $this->value['lng'],
-      ];
-    }
-    else {
-      $center = $this->locationInputManager->getCoordinates((array) $this->value['center'], $this->options['location_input'], $this);
-    }
+    $center = $this->locationInputManager->getCoordinates((array) $this->value['center'], $this->options['location_input'], $this);
 
     if (
       empty($center)
