@@ -91,7 +91,15 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
       ],
     ];
 
-    $form['location_input'] = $this->locationInputManager->getOptionsForm($this->options['location_input'], $this);
+    $input = $form_state->getUserInput();
+    if (!empty($input['options']['location_input'])) {
+      $location_options = $input['options']['location_input'];
+    }
+    else {
+      $location_options = $this->options['location_input'];
+    }
+
+    $form['location_input'] = $this->locationInputManager->getOptionsForm($location_options, $this);
   }
 
   /**
@@ -111,8 +119,6 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
    */
   public function valueForm(&$form, FormStateInterface $form_state) {
     parent::valueForm($form, $form_state);
-
-    $form['#tree'] = TRUE;
 
     if (!isset($form['value']['value'])) {
       $form['value'] = array_replace($form['value'], [
@@ -138,6 +144,7 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
     $identifier = $this->options['expose']['identifier'];
 
     $form[$identifier . '_center'] = $this->locationInputManager->getForm($this->options['location_input'], $this, empty($this->value['center']) ? NULL : $this->value['center']);
+    $form[$identifier . '_center']['#tree'] = TRUE;
   }
 
   /**
