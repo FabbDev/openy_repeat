@@ -4,6 +4,13 @@
   "description": "Import and provide geometry data.",
   "license": "GPL-2.0-or-later",
   "require": {
-    "gasparesganga/php-shapefile": "^3.4"
+    "gasparesganga/php-shapefile": "dev-master"
+  },
+  "extra": {
+    "patches": {
+      "gasparesganga/php-shapefile": {
+        "Allow empty field size": "https://patch-diff.githubusercontent.com/raw/gasparesganga/php-shapefile/pull/43.patch"
+      }
+    }
   }
 }

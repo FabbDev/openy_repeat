@@ -60,7 +60,13 @@ class NaturalEarthCountries extends GeolocationGeometryDataBase {
         $term->set('field_geometry_data_geometry', [
           'geojson' => $record->getGeoJSON(),
         ]);
-        $term->save();
+        try {
+          $term->save();
+        }
+        catch (\Exception $e) {
+          $logger->warning($e->getMessage());
+          $logger->warning(t('ERROR importing Country %country.', ['%country' => $record->getData('NAME')]));
+        }
       }
       return t('Done importing Countries.');
     }
