@@ -1,7 +1,7 @@
 name: Geolocation - Geometry Data - Natural Earth - US States
 type: module
 description: US States - Import data from http://www.naturalearthdata.com/
-core_version_requirement: ^9
+core_version_requirement: ^9.3 || ^10
 package: Geolocation
 dependencies:
   - geolocation_geometry_data

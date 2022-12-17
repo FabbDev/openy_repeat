@@ -1,7 +1,7 @@
 name: Geolocation - Geometry Data
 type: module
 description: 'Import and provide geometry data. ATTENTION: Requires "composer install gasparesganga/php-shapefile".'
-core_version_requirement: ^9
+core_version_requirement: ^9.3 || ^10
 package: Geolocation
 dependencies:
   - geolocation_geometry

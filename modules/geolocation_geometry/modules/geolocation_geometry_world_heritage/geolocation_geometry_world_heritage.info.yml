@@ -1,7 +1,7 @@
 name: Geolocation - Geometry Data - UNESCO World Heritage Sites
 type: module
 description: Import data from https://whc.unesco.org/en/syndication
-core_version_requirement: ^9
+core_version_requirement: ^9.3 || ^10
 package: Geolocation
 dependencies:
   - geolocation_geometry_data

@@ -18,6 +18,6 @@
   },
   "require": {
     "php": "^7.3 || ^8.0",
-    "drupal/core": "^9.2"
+    "drupal/jquery_ui_autocomplete": "^1.1"
   }
 }

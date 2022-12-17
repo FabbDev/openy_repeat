@@ -1,7 +1,7 @@
 name: Geolocation - Search API Integration
 type: module
 description: 'Use Search API Location fields in geolocation map views style.'
-core_version_requirement: ^9
+core_version_requirement: ^9.3 || ^10
 package: Geolocation
 dependencies:
   - geolocation:geolocation
