@@ -133,6 +133,7 @@ abstract class GeolocationStyleBase extends StylePluginBase {
     }
     elseif (!empty($this->options['marker_icon_path'])) {
       $icon_token_uri = $this->viewsTokenReplace($this->options['marker_icon_path'], $this->rowTokens[$row->index]);
+      $icon_token_uri = $this->globalTokenReplace($icon_token_uri);
       $icon_token_uri = preg_replace('/\s+/', '', $icon_token_uri);
       $icon_url = $this->fileUrlGenerator->generateString($icon_token_uri);
     }
