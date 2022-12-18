@@ -17,7 +17,6 @@
     "source": "https://git.drupal.org/project/geolocation.git"
   },
   "require": {
-    "php": "^7.3 || ^8.0",
-    "drupal/jquery_ui_autocomplete": "^1.1"
+    "php": "^7.3 || ^8.0"
   }
 }
