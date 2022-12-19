@@ -6,5 +6,5 @@ package: Geolocation
 dependencies:
   - geolocation:geolocation
   - search_api:search_api
-  - search_api_location:search_api_location
-  - search_api_location:search_api_location_views
+  - search_api_location:search_api_location (>=8.x-1.x-dev)
+  - search_api_location:search_api_location_views (>=8.x-1.x-dev)
