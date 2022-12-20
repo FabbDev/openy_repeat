@@ -163,8 +163,8 @@
  * @property {function():{GeolocationCoordinates}} getCenter - Get map center coordinates.
  * @property {function({string})} setCenter - Center map by plugin.
  * @property {function({GeolocationCoordinates}, {Number}?, {string}?)} setCenterByCoordinates - Center map on coordinates.
- * @property {function({GeolocationMapMarker[]}?, {String}?)} fitMapToMarkers - Fit map to markers.
- * @property {function({GeolocationMapMarker[]}?):{Object}} getMarkerBoundaries - Get marker boundaries.
+ * @property {function({GeolocationMapMarker}[]?, {String}?)} fitMapToMarkers - Fit map to markers.
+ * @property {function({GeolocationMapMarker}[]?):{Object}} getMarkerBoundaries - Get marker boundaries.
  * @property {function({Object}, {String}?)} fitBoundaries - Fit map to bounds.
  *
  * @property {function({Event})} clickCallback - Executes {GeolocationMapClickCallbacks} for this map.

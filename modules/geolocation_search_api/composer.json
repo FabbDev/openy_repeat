@@ -6,8 +6,5 @@
     "require": {
         "drupal/search_api": "^1.23",
         "drupal/search_api_location": "1.x-dev"
-    },
-    "require-dev": {
-        "drupal/search_api_location": "1.x-dev"
     }
 }
