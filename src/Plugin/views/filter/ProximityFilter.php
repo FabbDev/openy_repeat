@@ -175,8 +175,8 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
       return;
     }
 
-    $session = $this->view->getRequest()->getSession();
-    $views_session = $session->get('views', []);
+    $session = $this->view->getRequest()->getSession() ?? NULL;
+    $views_session = $session?->get('views', []) ?? [];
     $display_id = ($this->view->display_handler->isDefaulted('filters')) ? 'default' : $this->view->current_display;
 
     if (empty($views_session[$this->view->storage->id()][$display_id])) {
@@ -184,7 +184,7 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
     }
 
     $views_session[$this->view->storage->id()][$display_id]['center'] = $input[$identifier . '_center'];
-    $session->set('views', $views_session);
+    $session?->set('views', $views_session);
   }
 
   /**
