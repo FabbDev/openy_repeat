@@ -18,13 +18,5 @@
   },
   "require": {
     "php": "^7.3 || ^8.0"
-  },
-  "require-dev": {
-    "drupal/geolocation":  "*",
-    "drupal/geolocation_demo":  "*",
-    "drupal/geolocation_google_maps":  "*",
-    "drupal/geolocation_google_maps_demo":  "*",
-    "drupal/geolocation_leaflet":  "*",
-    "drupal/geolocation_leaflet_demo":  "*"
   }
 }
