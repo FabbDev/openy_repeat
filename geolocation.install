@@ -197,7 +197,7 @@ function geolocation_update_8203(&$sandbox) {
  * Enable the jquery_ui_autocomplete module.
  */
 function geolocation_update_8301() {
-  // Enable geolocation_google_maps.
+  // Enable jquery_ui_autocomplete module.
   if (!\Drupal::service('module_handler')->moduleExists('jquery_ui_autocomplete')) {
     \Drupal::service('module_installer')->install(['jquery_ui_autocomplete']);
   }
