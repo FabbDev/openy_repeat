@@ -21,13 +21,9 @@ mapfeature.baidu_marker_infowindow:
   dependencies:
     - geolocation_baidu/geolocation.baidu
 
-mapfeature.baidu_map_controls:
+mapfeature.baidu_map_navigation_controls:
   dependencies:
-    - core/drupal
-    - core/jquery
-    - core/drupalSettings
     - geolocation_baidu/geolocation.baidu
-    - geolocation_baidu/commonmap.baidu
   version: 1.x
   js:
-    js/MapFeature/baidu-maps-controls.js: {}
+    js/MapFeature/baidu-maps-navigation-controls.js: {}

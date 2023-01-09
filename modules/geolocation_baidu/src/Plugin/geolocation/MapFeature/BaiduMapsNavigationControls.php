@@ -9,13 +9,13 @@ use Drupal\Core\Render\BubbleableMetadata;
  * Provides map zoom control support.
  *
  * @MapFeature(
- *   id = "baidu_maps_controls",
+ *   id = "baidu_maps_navigation_controls",
  *   name = @Translation("Baidu map controls"),
  *   description = @Translation("Add map zoom controls."),
  *   type = "baidu",
  * )
  */
-class BaiduMapsControls extends MapFeatureBase {
+class BaiduMapsNavigationControls extends MapFeatureBase {
 
   /**
    * {@inheritdoc}
@@ -75,7 +75,7 @@ class BaiduMapsControls extends MapFeatureBase {
       empty($render_array['#attached']) ? [] : $render_array['#attached'],
       [
         'library' => [
-          'geolocation_baidu/mapfeature.baidu_map_controls',
+          'geolocation_baidu/mapfeature.baidu_map_navigation_controls',
         ],
         'drupalSettings' => [
           'geolocation' => [

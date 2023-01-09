@@ -3,7 +3,7 @@
  * Zoom Control.
  */
 
-(function($, Drupal) {
+(function ($, Drupal) {
   "use strict";
 
   /**
@@ -14,8 +14,8 @@
    * @prop {Drupal~behaviorAttach} attach
    *  Attaches common map style functionality to relevant elements.
    */
-  Drupal.behaviors.baiduMapsControls = {
-    attach: function(context, drupalSettings) {
+  Drupal.behaviors.baiduMapsNavigationControls = {
+    attach: function (context, drupalSettings) {
       Drupal.geolocation.executeFeatureOnAllMaps(
         "baidu_maps_controls",
 
@@ -23,17 +23,17 @@
          * @param {GeolocationBaiduMap} map - Current map.
          * @param {GeolocationMapFeatureSettings} featureSettings - Settings for current feature.
          */
-        function(map, featureSettings) {
+        function (map, featureSettings) {
           const opts = {
             type: window[featureSettings.type],
-            anchor:window[featureSettings.position],
-          }
+            anchor: window[featureSettings.position],
+          };
           map.baiduMap.addControl(new BMap.NavigationControl(opts));
           return true;
         },
         drupalSettings
       );
     },
-    detach: function(context, drupalSettings) {}
+    detach: function (context, drupalSettings) {},
   };
 })(jQuery, Drupal);
