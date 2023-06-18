@@ -20,6 +20,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class MarkerIcon extends MapFeatureBase implements ContainerFactoryPluginInterface {
 
+  /**
+   * File URL Generator service.
+   *
+   * @var \Drupal\Core\File\FileUrlGeneratorInterface
+   */
   protected FileUrlGeneratorInterface $fileUrlGenerator;
 
   /**

@@ -26,7 +26,7 @@ class BoundaryFilter extends FilterPluginBase implements ContainerFactoryPluginI
   /**
    * {@inheritdoc}
    */
-  public $no_operator = TRUE;
+  public $no_operator = TRUE; // phpcs:ignore
 
   /**
    * Can be used for CommonMap interactive filtering.
@@ -369,7 +369,7 @@ class BoundaryFilter extends FilterPluginBase implements ContainerFactoryPluginI
   /**
    * Test validity of boundary values.
    *
-   * @param $values
+   * @param mixed $values
    *   Values to test.
    *
    * @return bool
