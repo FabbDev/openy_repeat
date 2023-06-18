@@ -2,11 +2,11 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\Geocoder;
 
+use Drupal\Component\Serialization\Json;
+use Drupal\Core\Url;
 use Drupal\geolocation\GeocoderBase;
 use Drupal\geolocation\GeocoderInterface;
-use Drupal\Component\Serialization\Json;
 use GuzzleHttp\Exception\RequestException;
-use Drupal\Core\Url;
 
 /**
  * Provides the Nominatim API.

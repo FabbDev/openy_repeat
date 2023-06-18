@@ -2,9 +2,9 @@
 
 namespace Drupal\geolocation_geometry\Plugin\Validation\Constraint;
 
+use Drupal\Core\Database\DatabaseExceptionWrapper;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Drupal\Core\Database\DatabaseExceptionWrapper;
 
 /**
  * Validates the GeoType constraint.

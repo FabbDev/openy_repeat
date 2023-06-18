@@ -3,9 +3,9 @@
 namespace Drupal\geolocation_geometry\Feeds\Target;
 
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\feeds\FieldTargetDefinition;
 use Drupal\feeds\Plugin\Type\Target\FieldTargetBase;
-use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Defines a geolocation field mapper for WKT/JSON sources.
