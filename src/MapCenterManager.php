@@ -3,10 +3,10 @@
 namespace Drupal\geolocation;
 
 use Drupal\Component\Utility\Html;
-use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\Component\Utility\SortArray;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Component\Utility\SortArray;
+use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**

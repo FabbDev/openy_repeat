@@ -2,10 +2,10 @@
 
 namespace Drupal\Tests\geolocation\Kernel;
 
-use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\field\Entity\FieldConfig;
-use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldItemInterface;
+use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Tests\field\Kernel\FieldKernelTestBase;
 
 /**

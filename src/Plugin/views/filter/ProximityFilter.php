@@ -3,11 +3,11 @@
 namespace Drupal\geolocation\Plugin\views\filter;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\geolocation\LocationInputManager;
-use Drupal\views\Plugin\views\filter\NumericFilter;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\geolocation\LocationInputManager;
 use Drupal\geolocation\ProximityTrait;
+use Drupal\views\Plugin\views\filter\NumericFilter;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Filter handler for search keywords.

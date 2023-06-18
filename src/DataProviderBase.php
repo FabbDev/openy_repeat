@@ -2,16 +2,16 @@
 
 namespace Drupal\geolocation;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Plugin\PluginBase;
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemInterface;
-use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\views\ResultRow;
+use Drupal\Core\Plugin\PluginBase;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
-use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\Component\Utility\Html;
+use Drupal\views\ResultRow;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class DataProvider Base.
