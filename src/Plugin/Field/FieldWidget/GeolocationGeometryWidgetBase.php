@@ -160,7 +160,7 @@ abstract class GeolocationGeometryWidgetBase extends WidgetBase implements Conta
     $element['geojson'] = [
       '#type' => 'textarea',
       '#title' => $this->t('GeoJSON'),
-      '#default_value' => isset($items[$delta]->geojson) ? $items[$delta]->geojson : NULL,
+      '#default_value' => $items[$delta]->geojson ?? NULL,
       '#empty_value' => '',
       '#required' => $element['#required'],
       '#attributes' => [

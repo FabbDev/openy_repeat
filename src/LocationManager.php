@@ -96,7 +96,7 @@ class LocationManager extends DefaultPluginManager {
       $location = $this->createInstance($location_id);
       foreach ($location->getAvailableLocationOptions($context) as $option_id => $label) {
         $option_enable_id = uniqid($option_id . '_enabled');
-        $weight = isset($settings[$option_id]['weight']) ? $settings[$option_id]['weight'] : 0;
+        $weight = $settings[$option_id]['weight'] ?? 0;
         $form[$option_id] = [
           '#weight' => $weight,
           '#attributes' => [
@@ -109,7 +109,7 @@ class LocationManager extends DefaultPluginManager {
               'id' => $option_enable_id,
             ],
             '#type' => 'checkbox',
-            '#default_value' => isset($settings[$option_id]['enable']) ? $settings[$option_id]['enable'] : FALSE,
+            '#default_value' => $settings[$option_id]['enable'] ?? FALSE,
           ],
           'option' => [
             '#markup' => $label,

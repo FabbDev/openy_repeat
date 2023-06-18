@@ -141,7 +141,7 @@ class ProximityArgument extends Formula {
         'lng' => floatval($values[2]),
         'operator' => $values[3],
         'distance' => floatval($values[4]),
-        'unit' => isset($values[5]) ? $values[5] : 'km',
+        'unit' => $values[5] ?? 'km',
       ] : FALSE;
     }
     return $values;

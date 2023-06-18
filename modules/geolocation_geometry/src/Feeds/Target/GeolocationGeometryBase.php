@@ -74,7 +74,7 @@ class GeolocationGeometryBase extends FieldTargetBase {
    * {@inheritdoc}
    */
   protected function prepareValue($delta, array &$values) {
-    switch($this->configuration['format']) {
+    switch ($this->configuration['format']) {
       case 'wkt':
         $values['wkt'] = $values['placeholder'];
         break;
@@ -83,7 +83,7 @@ class GeolocationGeometryBase extends FieldTargetBase {
         $values['json'] = $values['placeholder'];
         break;
     }
-    unset ($values['placeholder']);
+    unset($values['placeholder']);
   }
 
   /**

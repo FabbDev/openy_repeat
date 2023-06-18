@@ -366,6 +366,15 @@ class BoundaryFilter extends FilterPluginBase implements ContainerFactoryPluginI
     );
   }
 
+  /**
+   * Test validity of boundary values.
+   *
+   * @param $values
+   *   Values to test.
+   *
+   * @return bool
+   *   Success.
+   */
   private function isBoundarySet($values): bool {
     if (!is_array($values)) {
       return FALSE;

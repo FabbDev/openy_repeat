@@ -18,14 +18,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   type = "google_maps",
  * )
  */
-class MarkerIcon extends MapFeatureBase implements ContainerFactoryPluginInterface{
+class MarkerIcon extends MapFeatureBase implements ContainerFactoryPluginInterface {
 
-  /**
-   * File uri generator.
-   *
-   * @var \Drupal\Core\File\FileUrlGeneratorInterface
-   */
-  protected $fileUrlGenerator;
+  protected FileUrlGeneratorInterface $fileUrlGenerator;
 
   /**
    * Constructs a new LeafletMarkerIcon plugin object.
