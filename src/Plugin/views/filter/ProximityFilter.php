@@ -176,7 +176,8 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
     }
 
     $display_id = ($this->view->display_handler->isDefaulted('filters')) ? 'default' : $this->view->current_display;
-    $session = $this->view->getRequest()->getSession() ?? NULL;
+    $request = $this->view->getRequest();
+    $session = $request->hasSession() ? $request->getSession() : NULL;
     $views_session = $session ? $session->get('views', []) : [];
     if (empty($views_session[$this->view->storage->id()][$display_id])) {
       return;
