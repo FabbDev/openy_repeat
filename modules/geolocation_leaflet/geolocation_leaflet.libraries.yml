@@ -56,6 +56,7 @@ leaflet.draw:
   version: '1.0.4'
   license:
     name: MIT-LICENSE
+    url: https://github.com/Leaflet/Leaflet.draw/blob/master/MIT-LICENSE.md
     gpl-compatible: true
   css:
     component:
@@ -104,6 +105,7 @@ leaflet.markerclusterer:
   version: '1.4.1'
   license:
     name: MIT-LICENSE
+    url: https://github.com/Leaflet/Leaflet.markercluster/blob/master/MIT-LICENCE.txt
     gpl-compatible: true
   css:
     component:
@@ -345,6 +347,7 @@ leaflet.rotate:
   version: '0.1.1'
   license:
     name: GPL-3.0
+    url: https://github.com/Raruto/leaflet-rotate/blob/master/LICENSE
     gpl-compatible: true
   js:
     'https://unpkg.com/leaflet-rotate@0.1.2/dist/leaflet-rotate-src.js': { type: external }
