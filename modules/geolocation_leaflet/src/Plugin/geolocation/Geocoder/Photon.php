@@ -217,6 +217,7 @@ class Photon extends GeocoderBase implements GeocoderInterface {
             'state' => $entry['properties']['state'],
             'country' => $entry['properties']['country'],
             'countryCode' => array_search($entry['properties']['country'], $countries),
+            'county' => $entry['properties']['county'],
           ];
           break 2;
       }
