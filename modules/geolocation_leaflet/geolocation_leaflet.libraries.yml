@@ -8,9 +8,9 @@ leaflet:
     gpl-compatible: true
   css:
     component:
-      'https://unpkg.com/leaflet@1.7.1/dist/leaflet.css': { type: external, minified: true }
+      'https://unpkg.com/leaflet@1.8.0/dist/leaflet.css': { type: external, minified: true }
   js:
-    'https://unpkg.com/leaflet@1.7.1/dist/leaflet.js': { type: external, minified: true }
+    'https://unpkg.com/leaflet@1.8.0/dist/leaflet.js': { type: external, minified: true }
 
 # Leaflet integration library.
 geolocation.leaflet:
