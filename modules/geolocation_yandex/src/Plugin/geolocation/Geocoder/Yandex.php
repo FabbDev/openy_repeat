@@ -79,8 +79,8 @@ class Yandex extends GeocoderBase implements GeocoderInterface {
     else {
       $coordinates = explode(' ', $result['response']['GeoObjectCollection']['featureMember'][0]['GeoObject']['Point']['pos']);
       $location['location'] = [
-        'lat' => $coordinates[0],
-        'lng' => $coordinates[1],
+        'lng' => $coordinates[0],
+        'lat' => $coordinates[1],
       ];
     }
 
