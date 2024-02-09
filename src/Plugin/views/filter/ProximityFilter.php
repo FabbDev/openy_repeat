@@ -110,7 +110,9 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
 
     $center_form = $this->locationInputManager->getForm($this->options['location_input'], $this, empty($this->value['center']) ? NULL : $this->value['center']);
     if (!empty($center_form)) {
-      $form['center'] = $center_form;
+      $identifier = $this->options['expose']['identifier'];
+      $form[$identifier . '_center'] = $center_form;
+      $form[$identifier . '_center']['#tree'] = TRUE;
     }
   }
 
