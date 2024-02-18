@@ -157,8 +157,14 @@ abstract class GeolocationGeometryBase extends FieldItemBase {
   protected static function getRandomCoordinates(array $reference_point = NULL, int $range = 5) {
     if ($reference_point) {
       return [
-        'latitude' => rand(max(-89, ($reference_point['latitude'] - $range)), min(90, ($reference_point['latitude'] + $range))) - (float) (rand(0, 999999) / 1000000),
-        'longitude' => rand(max(-179, ($reference_point['longitude'] - $range)), min(180, ($reference_point['longitude'] + $range))) - (float) (rand(0, 999999) / 1000000),
+        'latitude' => rand(
+          max(-89, ($reference_point['latitude'] - $range)),
+          min(90, ($reference_point['latitude'] + $range))
+        ) - (float) (rand(0, 999999) / 1000000),
+        'longitude' => rand(
+          max(-179, ($reference_point['longitude'] - $range)),
+          min(180, ($reference_point['longitude'] + $range))
+        ) - (float) (rand(0, 999999) / 1000000),
       ];
     }
     return [
