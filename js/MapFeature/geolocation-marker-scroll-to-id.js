@@ -25,7 +25,7 @@
          */
         function (map, featureSettings) {
           map.addMarkerAddedCallback(function (marker) {
-            marker.addListener("click", function () {
+            marker.addEventListener("click", function () {
               var id = marker.locationWrapper.data("scroll-target-id");
 
               var target = $("#" + id + ":visible").first();
